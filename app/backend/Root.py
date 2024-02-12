@@ -3,7 +3,7 @@ from Data.Message import Message
 from Data.Message_salon import Message_salon
 from Data.Role import Role
 from Data.Salon import Salon
-from Data.User import User
+from Data.Utilisateur import User
 
 
 class Root:

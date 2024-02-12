@@ -1,6 +1,6 @@
 from Db import DB
 
-class User:
+class Utilisateur:
     def __init__(self) -> None:
         self.db = DB(
                         host = 'localhost',
@@ -27,5 +27,12 @@ class User:
         query = 'DELETE FROM user WHERE id=%s'
         params = (id,)
         self.db.executeQuery(query, params)
+    
+    def utilisateurName (self, id):
+        query = 'SELECT FROM name WHERE id=%s'
+        params =(id,)
+        self.db.executeQuery(query, params)
+
+    
         
 
