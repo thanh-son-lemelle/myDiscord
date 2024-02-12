@@ -9,18 +9,18 @@ class Utilisateur:
                         db = 'myDiscord'
                     )
         
-    def create(self, username, name, lastname, email, password):
-        query = "INSERT INTO user (username, name, lastname, email, password) VALUES (%s, %s, %s, %s, %s)"
-        params = (username, name, lastname, email, password)
+    def create(self, nom, prenom, password, mail):
+        query = "INSERT INTO user (nom, prenom, password, mail) VALUES (%s, %s, %s, %s)"
+        params = (nom, prenom, password, mail)
         self.db.executeQuery(query, params)
 
     def read(self):
         query = 'SELECT * FROM user'
         return self.db.executeQuery(query)
     
-    def update(self, id, username, name, lastname, email, password):
-        query = 'UPDATE user SET username=%s, name=%s, lastname=%s, email=%s, password=%s WHERE id=%s'
-        params = (username, name, lastname, email, password, id)
+    def update(self, id, nom, prenom, password, mail):
+        query = 'UPDATE user SET nom=%s, prenom=%s, password=%s, mail=%s WHERE id=%s'
+        params = (nom, prenom, password, mail, id)
         self.db.executeQuery(query, params)
     
     def delete(self, id):
