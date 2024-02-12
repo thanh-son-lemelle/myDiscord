@@ -29,10 +29,17 @@ class Utilisateur:
         self.db.executeQuery(query, params)
     
     def utilisateurName (self, id):
-        query = 'SELECT FROM name WHERE id=%s'
+        query = 'SELECT name FROM user WHERE id=%s'
         params =(id,)
         self.db.executeQuery(query, params)
 
+    def utilisateurAllName (self):
+        query = 'SELECT mail FROM user'
+        self.db.executeQuery(query)
+
+    def allpassword (self):
+        query = 'SELECT password FROM user'
+        self.db.executeQuery(query)
     
         
 

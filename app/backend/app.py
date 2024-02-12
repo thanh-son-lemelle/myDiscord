@@ -94,7 +94,29 @@ class Root:
     def deleteutilisateur(self, id):
         self.utilisateur.delete(id)
 
-    def returnNameUtlissateur(self):
-        return self.utilisateur.utilisateurName() 
+    def returnNameUtlissateur(self,id):
+        return self.utilisateur.utilisateurName(id)
+    
+    def returnAllName(self):
+        return self.utilisateur.utilisateurAllName()
+    
+    def returnAllPassword(self):
+        return self.utilisateur.allpassword()
+    
 #===============================================================================
-        
+
+#===============================================================================
+        # pour le front
+#===============================================================================
+    
+    def stockMdpetMail(self):
+        listeMail =[]
+        listePassword =[]
+        listeMail = self.returnAllName()
+        listePassword = self.returnAllPassword()
+        return listeMail, listePassword
+
+test = Root()   
+print(test.stockMdpetMail())
+
+

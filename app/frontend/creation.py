@@ -4,19 +4,19 @@ from PIL import Image, ImageTk
 from tkinter import PhotoImage
 
 class Fenetre:
-    def __init__(self, root):
-        self.root = root
+    def __init__(self):
+        self.root = tk.CTk()
         self.root.title("Création de compte")
         self.root.geometry("1482x834")  
         self.root.config(bg="light green")  
         
-        self.canvas_title = CTkCanvas(root, width=500, height=100, bg="white", highlightthickness=0)
+        self.canvas_title = CTkCanvas(self.root, width=500, height=100, bg="white", highlightthickness=0)
         self.canvas_title.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
         
         self.titre_label = CTkLabel(self.canvas_title, text="Inscription à Harmony", font=("Lucid", 30), bg_color="white", fg_color="white")
         self.titre_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         
-        self.frame = CTkFrame(root, bg_color="white", width=500, height=300)
+        self.frame = CTkFrame(self.root, bg_color="white", width=500, height=300)
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         
         self.label = CTkLabel(self.frame, text="Veuillez remplir les informations", font=("Arial", 14), bg_color="white")
@@ -45,6 +45,8 @@ class Fenetre:
         self.valider_button = CTkButton(self.frame, text="Valider", bg_color="green", fg_color="black", font=("Arial", 12), command=self.afficher_info)
         self.valider_button.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
+        
+
     def afficher_info(self):
         nom = self.entry1.get()
         prenom = self.entry2.get()
@@ -56,9 +58,9 @@ class Fenetre:
         print("Email:", mail)
         print("Mot de Passe:", mdp)
 
-if __name__ == "__main__":
-    root = tk.CTk()
-    root.geometry("+0+0") 
-    fenetre = Fenetre(root)
-    root.mainloop()
+
+    def launch(self):
+        self.root.mainloop()
+
+
 
