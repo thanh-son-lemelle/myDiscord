@@ -3,7 +3,7 @@ from Data.Message import Message
 from Data.Message_salon import Message_salon
 from Data.Role import Role
 from Data.Salon import Salon
-from Data.Utilisateur import User
+from Data.Utilisateur import Utilisateur
 
 
 class Root:
@@ -13,7 +13,7 @@ class Root:
         self.message_salon = Message_salon()
         self.role = Role()
         self.salon = Salon()
-        self.user = User()
+        self.user = Utilisateur()
 
 #===============================================================================
         # message 
