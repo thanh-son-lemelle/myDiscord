@@ -75,4 +75,3 @@ button.pack(pady=12,padx=10)
 
 app.bind("<Configure>", bg_resizer)
 app.mainloop()
-#okokok
