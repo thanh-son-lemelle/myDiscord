@@ -9,18 +9,18 @@ class Message():
                         db = 'myDiscord'
                     )
         
-    def create(self, id_destinataire, id_expediteur, message):
-        query = "INSERT INTO message (id_destinataire, id_expediteur, message) VALUES (%s, %s, %s)"
-        params = (id_destinataire, id_expediteur, message)
+    def create(self,contenu):
+        query = "INSERT INTO message (contenu) VALUES (%s)"
+        params = (contenu,)
         self.db.executeQuery(query, params)
     
     def read(self):
         query = 'SELECT * FROM message'
         return self.db.executeQuery(query)
     
-    def update(self, id, id_destinataire, id_expediteur, message):
-        query = 'UPDATE message SET id_destinataire=%s, id_expediteur=%s, message=%s WHERE id=%s'
-        params = (id_destinataire, id_expediteur, message, id)
+    def update(self, id, contenu):
+        query = 'UPDATE message SET contenu=%s WHERE id=%s'
+        params = (contenu, id)
         self.db.executeQuery(query, params)
 
     def delete(self, id):
@@ -30,16 +30,21 @@ class Message():
 
 
     def read_message(self):
-        query = 'SELECT message FROM message'
+        query = 'SELECT contenu FROM message'
         return self.db.executeQuery(query)
 
 
 
     def read_time(self):
-        query = 'SELECT created_at FROM message'
+        query = 'SELECT date_heure FROM message'
         return self.db.executeQuery(query)
     
 
+    def read_user_id(self):
+        query = 'SELECT utilisateurID FROM message'
+        return self.db.executeQuery(query)
+    
+    
     
 
 
