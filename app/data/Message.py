@@ -28,4 +28,21 @@ class Message():
         params = (id,)
         self.db.executeQuery(query, params)
 
+
+    def read_message(self):
+        query = 'SELECT message FROM message'
+        return self.db.executeQuery(query)
+
+
+
+    def read_time(self):
+        query = 'SELECT created_at FROM message'
+        return self.db.executeQuery(query)
+    
+
+    
+
+
+
+
     
