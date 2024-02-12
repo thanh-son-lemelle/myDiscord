@@ -1,0 +1,64 @@
+import customtkinter as tk
+from customtkinter import *
+from PIL import Image, ImageTk
+from tkinter import PhotoImage
+
+class Fenetre:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Création de compte")
+        self.root.geometry("1482x834")  
+        self.root.config(bg="light green")  
+        
+        self.canvas_title = CTkCanvas(root, width=500, height=100, bg="white", highlightthickness=0)
+        self.canvas_title.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
+        
+        self.titre_label = CTkLabel(self.canvas_title, text="Inscription à Harmony", font=("Lucid", 30), bg_color="white", fg_color="white")
+        self.titre_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        
+        self.frame = CTkFrame(root, bg_color="white", width=500, height=300)
+        self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        
+        self.label = CTkLabel(self.frame, text="Contenu de la frame", font=("Arial", 14), bg_color="white")
+        self.label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        
+        self.label1 = CTkLabel(self.frame, text="Nom:", font=("Arial", 12), bg_color="white")
+        self.label1.place(relx=0.3, rely=0.3, anchor=tk.E)
+        self.entry1 = CTkEntry(self.frame)
+        self.entry1.place(relx=0.5, rely=0.3, anchor=tk.CENTER) 
+
+        self.label2 = CTkLabel(self.frame, text="Prénom:", font=("Arial", 12), bg_color="white")
+        self.label2.place(relx=0.3, rely=0.4, anchor=tk.E)
+        self.entry2 = CTkEntry(self.frame)
+        self.entry2.place(relx=0.5, rely=0.4, anchor=tk.CENTER)
+
+        self.label3 = CTkLabel(self.frame, text="Mail:", font=("Arial", 12), bg_color="white")
+        self.label3.place(relx=0.3, rely=0.5, anchor=tk.E)
+        self.entry3 = CTkEntry(self.frame)
+        self.entry3.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        self.label4 = CTkLabel(self.frame, text="Mot de Passe:", font=("Arial", 12), bg_color="white")
+        self.label4.place(relx=0.3, rely=0.6, anchor=tk.E)
+        self.entry4 = CTkEntry(self.frame)
+        self.entry4.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
+
+        self.valider_button = CTkButton(self.frame, text="Valider", bg_color="green", fg_color="black", font=("Arial", 12), command=self.afficher_info)
+        self.valider_button.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
+
+    def afficher_info(self):
+        nom = self.entry1.get()
+        prenom = self.entry2.get()
+        mail = self.entry3.get()
+        mdp = self.entry4.get()
+        
+        print("Nom:", nom)
+        print("Prénom:", prenom)
+        print("Email:", mail)
+        print("Mot de Passe:", mdp)
+
+if __name__ == "__main__":
+    root = tk.CTk()
+    root.geometry("+0+0") 
+    fenetre = Fenetre(root)
+    root.mainloop()
+
