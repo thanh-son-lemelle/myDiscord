@@ -2,15 +2,9 @@ import tkinter as tk
 import customtkinter as ctk
 from PIL import Image
 
-from Main_Page import Mainpage
-from creation import Fenetre
 
-from data.Utilisateur import Utilisateur
-
-class Loginpage():
+class LoginScreen():
     def __init__(self):
-        self.mainPage = Mainpage()
-        self.fenetre = Fenetre()
         self.user_entry = ''
         self.user_pass = ''
 
@@ -94,3 +88,5 @@ class Loginpage():
         """self.app.bind("<Configure>", self.bg_resizer)"""
         self.app.mainloop()
 
+test = LoginScreen()
+test.displayLoginScreen()
