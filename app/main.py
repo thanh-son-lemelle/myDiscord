@@ -1,7 +1,11 @@
-from frontend.LoginScreen import Loginpage
-from frontend.creation import Fenetre
-from frontend.Main_Page import Mainpage
+from backend import app
+from  backend import *
 
+test = Root()
 
-if __name__ == "__main__":
-    test = Loginpage().displayLoginScreen()
+print(test.utilisateur.read())
+print (test.returnAllMail())
+print (test.returnAllName())
+print (test.returnAllPassword())
+
+test.displayApp()

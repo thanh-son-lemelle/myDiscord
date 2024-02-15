@@ -1,4 +1,4 @@
-from Db import DB
+from .Db import DB
 
 class Utilisateur:
     def __init__(self) -> None:
@@ -31,15 +31,19 @@ class Utilisateur:
     def utilisateurName (self, id):
         query = 'SELECT name FROM user WHERE id=%s'
         params =(id,)
-        self.db.executeQuery(query, params)
+        return self.db.executeQuery(query, params)
+
+    def utilisateurAllmail (self):
+        query = 'SELECT mail FROM user'
+        return self.db.executeQuery(query)
 
     def utilisateurAllName (self):
-        query = 'SELECT mail FROM user'
-        self.db.executeQuery(query)
+        query = 'SELECT name FROM user'
+        return self.db.executeQuery(query)
 
     def allpassword (self):
         query = 'SELECT password FROM user'
-        self.db.executeQuery(query)
+        return self.db.executeQuery(query)
     
         
 

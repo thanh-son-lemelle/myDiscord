@@ -7,6 +7,8 @@ class LoginScreen():
     def __init__(self):
         self.user_entry = ''
         self.user_pass = ''
+        self.login = False
+        self.register = False
 
         ctk.set_appearance_mode("dark") 
   
@@ -32,6 +34,21 @@ class LoginScreen():
         psswd = self.user_pass.get()
         print("Valeur de l'entrée 1:", name)
         print("Valeur de l'entrée 2:", psswd)
+
+    def get_login(self):
+        return self.login
+
+    def set_loginAtTrue(self):
+        self.login = True
+        self.app.quit()
+        self.app.destroy()
+        print("Login:", self.login)
+    
+    def set_registerAtTrue(self):
+        self.register = True
+        self.app.quit()
+        self.app.destroy()
+    
 
     
 
@@ -71,7 +88,7 @@ class LoginScreen():
         
         # Create a login button to login 
         button = ctk.CTkButton(master=frame, 
-                            text='Login',command= self.mainPage.display)
+                            text='Login',command= self.set_loginAtTrue)
         button.pack(pady=12,padx=10)
         
         # Create a remember me checkbox 
@@ -81,12 +98,9 @@ class LoginScreen():
 
         # Create a register button link
         button = ctk.CTkButton(master=frame,
-                            text='register',command=self.fenetre.launch)
+                            text='register',command= self.set_registerAtTrue)
         button.pack(pady=12,padx=10)
 
 
         """self.app.bind("<Configure>", self.bg_resizer)"""
         self.app.mainloop()
-
-test = LoginScreen()
-test.displayLoginScreen()

@@ -1,4 +1,4 @@
-from Db import DB
+from .Db import DB
 
 class Message_salon():
     def __init__(self) -> None:

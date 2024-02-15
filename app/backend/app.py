@@ -5,9 +5,16 @@ from data.Role import Role
 from data.Salon import Salon
 from data.Utilisateur import Utilisateur
 
+from frontend.LoginScreen import LoginScreen
+from frontend.MainPage import Mainpage
+from frontend.register import Register
 
 class Root:
     def __init__(self) -> None:
+
+        self.login_screen = LoginScreen()
+        self.mainPage = Mainpage()
+        self.registerPage = Register()
         
         self.message = Message()
         self.message_salon = Message_salon()
@@ -100,13 +107,16 @@ class Root:
     def returnAllName(self):
         return self.utilisateur.utilisateurAllName()
     
+    def returnAllMail(self):
+        return self.utilisateur.utilisateurAllmail()
+    
     def returnAllPassword(self):
         return self.utilisateur.allpassword()
     
 #===============================================================================
 
 #===============================================================================
-        # pour le front
+        # Variables for the frontend
 #===============================================================================
     
     def stockMdpetMail(self):
@@ -116,7 +126,20 @@ class Root:
         listePassword = self.returnAllPassword()
         return listeMail, listePassword
 
-test = Root()   
-print(test.stockMdpetMail())
+#===============================================================================
+        # display methodes
+#===============================================================================
 
 
+    def displayApp(self):
+
+        while True:
+            root = Root()
+            root.login_screen.displayLoginScreen()
+            print("Login test dans root:", root.login_screen.get_login())
+            if root.login_screen.get_login() == True:
+                root.mainPage.display()
+                print("test3")
+            elif root.login_screen.register:
+                root.registerPage.launch()
+            break
