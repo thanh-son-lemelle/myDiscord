@@ -1,26 +1,26 @@
-from .Db import DB
+from .Db import Db
 
-class Utilisateur:
+class User:
     def __init__(self) -> None:
-        self.db = DB(
+        self.db = Db(
                         host = 'localhost',
                         user = 'root',
                         passwd = 'hR!9gT+pLq6s',
                         db = 'myDiscord'
                     )
         
-    def create(self, nom, prenom, password, mail):
-        query = "INSERT INTO user (nom, prenom, password, mail) VALUES (%s, %s, %s, %s)"
-        params = (nom, prenom, password, mail)
+    def create(self, name, firstname, password, mail):
+        query = "INSERT INTO user (name, firstname, password, mail) VALUES (%s, %s, %s, %s)"
+        params = (name, firstname, password, mail)
         self.db.executeQuery(query, params)
 
     def read(self):
         query = 'SELECT * FROM user'
         return self.db.executeQuery(query)
     
-    def update(self, id, nom, prenom, password, mail):
-        query = 'UPDATE user SET nom=%s, prenom=%s, password=%s, mail=%s WHERE id=%s'
-        params = (nom, prenom, password, mail, id)
+    def update(self, id, name, firstname, password, mail):
+        query = 'UPDATE user SET name=%s, firstname=%s, password=%s, mail=%s WHERE id=%s'
+        params = (name, firstname, password, mail, id)
         self.db.executeQuery(query, params)
     
     def delete(self, id):

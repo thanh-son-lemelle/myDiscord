@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import errorcode
 
-class DB:
+class Db:
     def __init__(self, host, user, passwd, db):
         self.host = host
         self.user = user
@@ -107,5 +107,5 @@ class DB:
         self.executeQuery(query)
         print("Tables created successfully")
 
-db = DB('localhost', 'root', 'hR!9gT+pLq6s', 'myDiscord')
+db = Db('localhost', 'root', 'hR!9gT+pLq6s', 'myDiscord')
 db.connect()

@@ -1,26 +1,26 @@
-from .Db import DB
+from .Db import Db
 
 class Message():
     def __init__(self) -> None:
-        self.db = DB(
+        self.db = Db(
                         host = 'localhost',
                         user = 'root',
                         passwd = 'hR!9gT+pLq6s',
                         db = 'myDiscord'
                     )
         
-    def create(self,contenu):
-        query = "INSERT INTO message (contenu) VALUES (%s)"
-        params = (contenu,)
+    def create(self,content):
+        query = "INSERT INTO message (content) VALUES (%s)"
+        params = (content,)
         self.db.executeQuery(query, params)
     
     def read(self):
         query = 'SELECT * FROM message'
         return self.db.executeQuery(query)
     
-    def update(self, id, contenu):
-        query = 'UPDATE message SET contenu=%s WHERE id=%s'
-        params = (contenu, id)
+    def update(self, id, content):
+        query = 'UPDATE message SET content=%s WHERE id=%s'
+        params = (content, id)
         self.db.executeQuery(query, params)
 
     def delete(self, id):
@@ -30,18 +30,17 @@ class Message():
 
 
     def read_message(self):
-        query = 'SELECT contenu FROM message'
+        query = 'SELECT content FROM message'
         return self.db.executeQuery(query)
 
 
-
     def read_time(self):
-        query = 'SELECT date_heure FROM message'
+        query = 'SELECT date_time FROM message'
         return self.db.executeQuery(query)
     
 
     def read_user_id(self):
-        query = 'SELECT utilisateurID FROM message'
+        query = 'SELECT userID FROM message'
         return self.db.executeQuery(query)
     
     

@@ -1,117 +1,117 @@
-from data.Db import DB
+from data.Db import Db
 from data.Message import Message
-from data.Message_salon import Message_salon
+from data.MessageChannel import MessageChannel
+from data.Channel import Channel
+from data.User import User
 from data.Role import Role
-from data.Salon import Salon
-from data.Utilisateur import Utilisateur
 
 from frontend.LoginScreen import LoginScreen
-from frontend.MainPage import Mainpage
-from frontend.register import Register
+from frontend.MainPage import MainPage
+from frontend.Register import Register
 
-class Root:
+class Application:
     def __init__(self) -> None:
 
         self.login_screen = LoginScreen()
-        self.mainPage = Mainpage()
-        self.registerPage = Register()
+        self.main_Page = MainPage()
+        self.register_Page = Register()
         
         self.message = Message()
-        self.message_salon = Message_salon()
+        self.message_channel = MessageChannel()
         self.role = Role()
-        self.salon = Salon()
-        self.utilisateur = Utilisateur()
+        self.channel = Channel()
+        self.user = User()
 
 #===============================================================================
         # message 
 #===============================================================================
-    def createMessage(self, id_destinataire, id_expediteur, message):
-        self.message.create(id_destinataire, id_expediteur, message)
+    def createMessage(self, id_receiver, id_sender, message):
+        self.message.create(id_receiver, id_sender, message)
     
     def readMessage(self):
         return self.message.read()
     
-    def updateMessage(self, id, id_destinataire, id_expediteur, message):
-        self.message.update(id, id_destinataire, id_expediteur, message)
+    def updateMessage(self, id, id_receiver, id_sender, message):
+        self.message.update(id, id_receiver, id_sender, message)
 
     def deleteMessage(self, id):
         self.message.delete(id)
 #===============================================================================
 
 #===============================================================================
-        # message_salon
+        # message_channel
 #===============================================================================
-    def createMessage_salon(self, id_utilisateur, id_salon, message):
-        self.message_salon.create(id_utilisateur, id_salon, message)
+    def createMessage_channel(self, id_user, id_channel, message):
+        self.message_channel.create(id_user, id_channel, message)
     
-    def readMessage_salon(self):
-        return self.message_salon.read()
+    def readMessage_channel(self):
+        return self.message_channel.read()
     
-    def updateMessage_salon(self, id, id_utilisateur, id_salon, message):
-        self.message_salon.update(id, id_utilisateur, id_salon, message)
+    def updateMessage_channel(self, id, id_user, id_channel, message):
+        self.message_channel.update(id, id_user, id_channel, message)
 
-    def deleteMessage_salon(self, id):
-        self.message_salon.delete(id)
+    def deleteMessage_channel(self, id):
+        self.message_channel.delete(id)
 #===============================================================================
         
 #===============================================================================
         # role
 #===============================================================================
-    def createRole(self, admin, id_utilisateur, id_salon):
-        self.role.create(admin, id_utilisateur, id_salon)
+    def createRole(self, admin, id_user, id_channel):
+        self.role.create(admin, id_user, id_channel)
     
     def readRole(self):
         return self.role.read()
     
-    def updateRole(self, id, admin, id_utilisateur, id_salon):
-        self.role.update(id, admin, id_utilisateur, id_salon)
+    def updateRole(self, id, admin, id_user, id_channel):
+        self.role.update(id, admin, id_user, id_channel)
 
     def deleteRole(self, id):
         self.role.delete(id)
 #===============================================================================
 
 #===============================================================================
-        # salon
+        # channel
 #===============================================================================
-    def createSalon(self, nom):
-        self.salon.create(nom)
+    def createChannel(self, name):
+        self.channel.create(name)
     
-    def readSalon(self):
-        return self.salon.read()
+    def readChannel(self):
+        return self.channel.read()
     
-    def updateSalon(self, id, nom):
-        self.salon.update(id, nom)
+    def updateChannel(self, id, name):
+        self.channel.update(id, name)
 
-    def deleteSalon(self, id):
-        self.salon.delete(id)
+    def deleteChannel(self, id):
+        self.channel.delete(id)
 #===============================================================================
     
 #===============================================================================
-        # utilisateur
+        # user
 #===============================================================================
-    def createutilisateur(self, nom, prenom, email, password):
-        self.utilisateur.create(nom, prenom, email, password)
+    def createUser(self, name, firstname, email, password):
+        self.user.create(name, firstname, email, password)
     
-    def readutilisateur(self):
-        return self.utilisateur.read()
+    def readUser(self):
+        return self.user.read()
     
-    def updateutilisateur(self, id, nom, prenom, email, password):
-        self.utilisateur.update(id, nom, prenom, email, password)
+    def updateUser(self, id, name, firstname, email, password):
+        self.user.update(id, name, firstname, email, password)
 
-    def deleteutilisateur(self, id):
-        self.utilisateur.delete(id)
+    def deleteUser(self, id):
+        self.user.delete(id)
 
-    def returnNameUtlissateur(self,id):
-        return self.utilisateur.utilisateurName(id)
+    def returnNameUser(self,id):
+        return self.user.userName(id)
     
     def returnAllName(self):
-        return self.utilisateur.utilisateurAllName()
+        return self.user.userAllName()
     
     def returnAllMail(self):
-        return self.utilisateur.utilisateurAllmail()
+        return self.user.userAllmail()
     
     def returnAllPassword(self):
-        return self.utilisateur.allpassword()
+        return self.user.allpassword()
     
 #===============================================================================
 
@@ -134,12 +134,12 @@ class Root:
     def displayApp(self):
 
         while True:
-            root = Root()
+            root =  Application()
             root.login_screen.displayLoginScreen()
-            print("Login test dans root:", root.login_screen.get_login())
+            print("Login test dans application:", root.login_screen.get_login())
             if root.login_screen.get_login() == True:
-                root.mainPage.display()
+                root.main_Page.display()
                 print("test3")
             elif root.login_screen.register:
-                root.registerPage.launch()
+                root.register_Page.launch()
             break

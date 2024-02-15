@@ -15,11 +15,11 @@ class LoginScreen():
         # Selecting color theme-blue, green, dark-blue 
         ctk.set_default_color_theme("green") 
 
-        self.app = ctk.CTk()
+        self.application = ctk.CTk()
 
         """self.image = Image.open("image\\background.gif")
         self.backgroundImage = ctk.CTkImage(self.image, size = (1482,834))"""
-        self.app.geometry("1482x834")
+        self.application.geometry("1482x834")
 
         """app.after(0, lambda:app.state('zoomed'))"""
 
@@ -40,14 +40,14 @@ class LoginScreen():
 
     def set_loginAtTrue(self):
         self.login = True
-        self.app.quit()
-        self.app.destroy()
+        self.application.quit()
+        self.application.destroy()
         print("Login:", self.login)
     
     def set_registerAtTrue(self):
         self.register = True
-        self.app.quit()
-        self.app.destroy()
+        self.application.quit()
+        self.application.destroy()
     
 
     

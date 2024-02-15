@@ -2,7 +2,6 @@ import customtkinter as tk
 from customtkinter import *
 
 
-
 class Register:
     def __init__(self):
         self.root = tk.CTk()
@@ -13,8 +12,8 @@ class Register:
         self.canvas_title = CTkCanvas(self.root, width=500, height=100, bg="white", highlightthickness=0)
         self.canvas_title.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
         
-        self.titre_label = CTkLabel(self.canvas_title, text="Inscription à Harmony", font=("Lucid", 30), bg_color="white", fg_color="white")
-        self.titre_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.title_label = CTkLabel(self.canvas_title, text="Inscription à Harmony", font=("Lucid", 30), bg_color="white", fg_color="white")
+        self.title_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         
         self.frame = CTkFrame(self.root, bg_color="white", width=500, height=300)
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
@@ -42,19 +41,19 @@ class Register:
         self.entry4 = CTkEntry(self.frame)
         self.entry4.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
 
-        self.valider_button = CTkButton(self.frame, text="Valider", bg_color="green", fg_color="black", font=("Arial", 12), command=self.afficher_info)
-        self.valider_button.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
+        self.validation_button = CTkButton(self.frame, text="Valider", bg_color="green", fg_color="black", font=("Arial", 12), command=self.afficher_info)
+        self.validation_button.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
         
 
     def afficher_info(self):
-        nom = self.entry1.get()
-        prenom = self.entry2.get()
+        name = self.entry1.get()
+        firstname = self.entry2.get()
         mail = self.entry3.get()
         mdp = self.entry4.get()
         
-        print("Nom:", nom)
-        print("Prénom:", prenom)
+        print("Nom:", name)
+        print("Prénom:", firstname)
         print("Email:", mail)
         print("Mot de Passe:", mdp)
 

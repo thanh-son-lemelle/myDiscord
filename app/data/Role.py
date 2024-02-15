@@ -1,26 +1,26 @@
-from .Db import DB
+from .Db import Db
 
 class Role:
     def __init__(self) -> None:
-        self.db = DB(
+        self.db = Db(
                         host = 'localhost',
                         user = 'root',
                         passwd = 'hR!9gT+pLq6s',
                         db = 'myDiscord'
                     )
     
-    def create(self, admin, id_user, id_salon):
-        query = "INSERT INTO role (admin, id_user, id_salon) VALUES (%s, %s, %s)"
-        params = (admin, id_user, id_salon)
+    def create(self, admin, id_user, id_channel):
+        query = "INSERT INTO role (admin, id_user, id_channel) VALUES (%s, %s, %s)"
+        params = (admin, id_user, id_channel)
         self.db.executeQuery(query, params)
     
     def read(self):
         query = 'SELECT * FROM role'
         return self.db.executeQuery(query)
     
-    def update(self, id, admin, id_user, id_salon):
-        query = 'UPDATE role SET admin=%s, id_user=%s, id_salon=%s WHERE id=%s'
-        params = (admin, id_user, id_salon, id)
+    def update(self, id, admin, id_user, id_channel):
+        query = 'UPDATE role SET admin=%s, id_user=%s, id_channel=%s WHERE id=%s'
+        params = (admin, id_user, id_channel, id)
         self.db.executeQuery(query, params)
     
     def delete(self, id):

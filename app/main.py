@@ -1,9 +1,9 @@
-from backend import app
+from backend import Application
 from  backend import *
 
-test = Root()
+test = Application()
 
-print(test.utilisateur.read())
+print (test.user.read())
 print (test.returnAllMail())
 print (test.returnAllName())
 print (test.returnAllPassword())

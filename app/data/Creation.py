@@ -1,17 +1,17 @@
-from .Db import DB
+from .Db import Db
 
 class Creation:
     def __init__(self) -> None:
-        self.db = DB(
+        self.db = Db(
                         host = 'localhost',
                         user = 'root',
                         passwd = 'hR!9gT+pLq6s',
                         db = 'myDiscord'
                     )
         
-    def create(self, username, name, lastname, email, password):
-        query = "INSERT INTO creation (username) VALUES (%s), (name) VALUES (%s), (lastname) VALUES (%s), (email) VALUES (%s), (password) VALUES (%s)"
-        params = (username, name, lastname, email, password)
+    def create(self, username, name, firstname, email, password):
+        query = "INSERT INTO creation (username) VALUES (%s), (name) VALUES (%s), (firstname) VALUES (%s), (email) VALUES (%s), (password) VALUES (%s)"
+        params = (username, name, firstname, email, password)
         self.db.executeQuery(query, params)
 
     def read(self):
