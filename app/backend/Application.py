@@ -142,5 +142,11 @@ class Application:
                 root.main_Page.display()
                 print("test3")
             elif root.login_screen.register:
-                root.register_Page.launch()
+                name, firstname, email, password = root.register_Page.launch()
+
+            print("Nom:", name)
+            print("Prénom:", firstname)
+            print("Email:", email)
+            print("Mot de passe:", password)
             break
+
