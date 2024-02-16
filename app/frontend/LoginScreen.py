@@ -137,6 +137,7 @@ class LoginScreen(ctk.CTkFrame):
 
     def set_register_true(self):
         self.register = True
+        self.master.displayRegisterPage()
         # Handle further actions here
 
     def get_input_values(self):
