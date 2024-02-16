@@ -3,9 +3,9 @@ from .Db import Db
 class User:
     def __init__(self) -> None:
         self.db = Db(
-                        host = 'localhost',
-                        user = 'root',
-                        passwd = 'hR!9gT+pLq6s',
+                        host = '10.10.78.76',
+                        user = 'lakhezoum',
+                        passwd = ':)?uX3v2E8mH',
                         db = 'myDiscord'
                     )
         
@@ -28,16 +28,16 @@ class User:
         params = (id,)
         self.db.executeQuery(query, params)
     
-    def utilisateurName (self, id):
+    def userName (self, id):
         query = 'SELECT name FROM user WHERE id=%s'
         params =(id,)
         return self.db.executeQuery(query, params)
 
-    def utilisateurAllmail (self):
+    def userAllmail (self):
         query = 'SELECT mail FROM user'
         return self.db.executeQuery(query)
 
-    def utilisateurAllName (self):
+    def userAllName (self):
         query = 'SELECT name FROM user'
         return self.db.executeQuery(query)
 

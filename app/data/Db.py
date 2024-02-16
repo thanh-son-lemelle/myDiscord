@@ -2,11 +2,12 @@ import mysql.connector
 from mysql.connector import errorcode
 
 class Db:
-    def __init__(self, host, user, passwd, db):
+    def __init__(self, host, user, passwd, db,port = 3306):
         self.host = host
         self.user = user
         self.passwd = passwd
         self.db = db
+        self.port = port
     
     def connect(self):
         if self.db is not None:
@@ -15,7 +16,9 @@ class Db:
                                                         host=self.host, 
                                                         user=self.user, 
                                                         passwd=self.passwd, 
-                                                        db=self.db
+                                                        db=self.db,
+                                                        port = self.port
+                    
                                                     )
                 self.cursor = self.conn.cursor()
             except mysql.connector.Error as e:
