@@ -50,11 +50,6 @@ class LoginScreen():
         self.application.destroy()
     
 
-    
-
-
-
-
     # Create a bg label
     def displayLoginScreen(self):
 
@@ -62,7 +57,7 @@ class LoginScreen():
         bg_lbl.place(x=0, y=0)"""
 
         # Create a frame 
-        frame = ctk.CTkFrame(master=self.app, width=1482, height=834, corner_radius=45,)
+        frame = ctk.CTkFrame(master=self.application, width=1482, height=834, corner_radius=45,)
 
         frame.pack(pady=40,padx=300, fill='both',expand= False, side="top", anchor="center")
         """frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)"""
@@ -103,4 +98,4 @@ class LoginScreen():
 
 
         """self.app.bind("<Configure>", self.bg_resizer)"""
-        self.app.mainloop()
+        self.application.mainloop()
