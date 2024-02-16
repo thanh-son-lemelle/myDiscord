@@ -60,6 +60,6 @@ class Register:
 
     def launch(self):
         self.root.mainloop()
-
+        return self.entry1.get(), self.entry2.get(), self.entry3.get(), self.entry4.get()
 
 
