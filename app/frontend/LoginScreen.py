@@ -50,11 +50,6 @@ class LoginScreen():
         self.application.destroy()
     
 
-    
-
-
-
-
     # Create a bg label
     def displayLoginScreen(self):
 
