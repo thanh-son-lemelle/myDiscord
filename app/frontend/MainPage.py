@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from customtkinter import *
+from customtkinter.assets import *
 
 class MainPage():
     def __init__(self):
@@ -43,7 +44,13 @@ class MainPage():
         button = CTkButton(self.frame2, text="Envoyer", command=self.on_button_click, text_color="#000000", fg_color="#FFFFFF",hover_color="#01b366")
         button.pack(side=BOTTOM, ipadx=40)  # Utilisation de pack pour positionner le bouton en bas
 
-        print("test2")
        
         self.application2.mainloop()
+
+
+    def get_message(self,message):
+        commande = message
+        return commande
+
+
         
