@@ -135,8 +135,9 @@ class Application:
 
         while True:
             root =  Application()
-            root.login_screen.displayLoginScreen()
-            print("Login test dans application:", root.login_screen.get_login())
+            name , paswd = root.login_screen.displayLoginScreen()
+            print (name, paswd)
+
             if root.login_screen.get_login() == True:
                 root.main_Page.display()
                 print("test3")

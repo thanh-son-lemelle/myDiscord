@@ -9,6 +9,7 @@ class LoginScreen():
         self.user_pass = ''
         self.login = False
         self.register = False
+        self.status = True
 
         ctk.set_appearance_mode("dark") 
   
@@ -32,17 +33,17 @@ class LoginScreen():
     def get_input_values(self):
         name = self.user_entry.get()
         psswd = self.user_pass.get()
-        print("Valeur de l'entrée 1:", name)
-        print("Valeur de l'entrée 2:", psswd)
+        return name, psswd
+
 
     def get_login(self):
         return self.login
 
     def set_loginAtTrue(self):
+        self.get_input_values()
         self.login = True
         self.application.quit()
         self.application.destroy()
-        print("Login:", self.login)
     
     def set_registerAtTrue(self):
         self.register = True
@@ -75,16 +76,16 @@ class LoginScreen():
         
         # Create the text box for taking 
         # username input from user 
-        user_entry= ctk.CTkEntry(master=frame, 
+        self.user_entry= ctk.CTkEntry(master=frame, 
                                 placeholder_text="Pseudo/mail") 
-        user_entry.pack(pady=12,padx=10) 
+        self.user_entry.pack(pady=12,padx=10) 
         
         # Create a text box for taking  
         # password input from user 
-        user_pass= ctk.CTkEntry(master=frame, 
+        self.user_pass= ctk.CTkEntry(master=frame, 
                                 placeholder_text="mot de passe", 
                                 show="*") 
-        user_pass.pack(pady=12,padx=10) 
+        self.user_pass.pack(pady=12,padx=10) 
         
         # Create a login button to login 
         button = ctk.CTkButton(master=frame, 
@@ -104,3 +105,4 @@ class LoginScreen():
 
         """self.app.bind("<Configure>", self.bg_resizer)"""
         self.application.mainloop()
+        return self.get_input_values()
