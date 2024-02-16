@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from LoginScreen import LoginScreen
 from MainPage import MainPage
+from Register import Register
 
 class Screen(ctk.CTk):
     def __init__(self):
@@ -24,6 +25,11 @@ class Screen(ctk.CTk):
         self.login_screen.pack_forget()
         self.main_page = MainPage(self)
         self.main_page.pack(expand=True, fill='both')
+
+    def displayRegisterPage(self):
+        self.login_screen.pack_forget()
+        self.register_page = Register(self)
+        self.register_page.pack(expand=True, fill='both')
 
     def on_closing(self):
         self.destroy()
