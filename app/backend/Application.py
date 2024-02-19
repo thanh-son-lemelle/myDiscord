@@ -137,15 +137,15 @@ class Application:
             root =  Application()
             root.login_screen.displayLoginScreen()
             print("Login test dans application:", root.login_screen.get_login())
-            if root.login_screen.get_login() == True:
+            if root.login_screen.get_login():
                 root.main_Page.display()
                 print("test3")
             elif root.login_screen.register:
                 name, firstname, email, password = root.register_Page.launch()
 
-            print("Nom:", name)
-            print("Prénom:", firstname)
-            print("Email:", email)
-            print("Mot de passe:", password)
+                print("testNom:", name)
+                print("testPrénom:", firstname)
+                print("testEmail:", email)
+                print("testMot de passe:", password)
             break
 

@@ -41,10 +41,9 @@ class Register:
         self.entry4 = CTkEntry(self.frame)
         self.entry4.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
 
-        self.validation_button = CTkButton(self.frame, text="Valider", bg_color="green", fg_color="black", font=("Arial", 12), command=self.afficher_info)
+        self.validation_button = CTkButton(self.frame, text="Valider", bg_color="green", fg_color="black", font=("Arial", 12), command=self.afficher_info and self.root.quit)
         self.validation_button.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
-        
 
     def afficher_info(self):
         name = self.entry1.get()
