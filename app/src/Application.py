@@ -1,6 +1,6 @@
 from Db import Db
 from Message import Message
-from MessageChannel import MessageChannel
+
 from Channel import Channel
 from User import User
 from Role import Role
@@ -15,7 +15,7 @@ class Application:
 
         self.screen = Screen()
         self.message = Message()
-        self.message_channel = MessageChannel()
+
         self.role = Role()
         self.channel = Channel()
         self.user = User()
