@@ -1,22 +1,19 @@
-from data.Db import Db
-from data.Message import Message
-from data.MessageChannel import MessageChannel
-from data.Channel import Channel
-from data.User import User
-from data.Role import Role
+from Db import Db
+from Message import Message
+from MessageChannel import MessageChannel
+from Channel import Channel
+from User import User
+from Role import Role
 
-from frontend.LoginScreen import LoginScreen
-from frontend.MainPage import MainPage
-from frontend.Register import Register
-from frontend.Screen import Screen
+from LoginScreen import LoginScreen
+from MainPage import MainPage
+from Register import Register
+from Screen import Screen
 
 class Application:
     def __init__(self) -> None:
 
-        self.login_screen = LoginScreen()
-        self.main_Page = MainPage()
-        self.register_Page = Register()
-        
+        self.screen = Screen()
         self.message = Message()
         self.message_channel = MessageChannel()
         self.role = Role()
@@ -126,13 +123,26 @@ class Application:
         listeMail = self.returnAllName()
         listePassword = self.returnAllPassword()
         return listeMail, listePassword
+    
+
+#===============================================================================
+        # treating input
+#===============================================================================
+    def givingPermission(self):
+        allUser = self.readUser()
+        for user in allUser:
+            if user[3] == self.login_screen.get_user() and user[4] == self.login_screen.get_password():
+                return user[0]
+            
+    
+        
 
 #===============================================================================
         # display methodes
 #===============================================================================
 
 
-    def displayApp(self):
+"""    def displayApp(self):
 
         while True:
             root =  Application()
@@ -149,8 +159,7 @@ class Application:
             print("Prénom:", firstname)
             print("Email:", email)
             print("Mot de passe:", password)
-            break
+            break"""
 
-if __name__ == "__main__":
-    app = Screen()
-    app.mainloop()
+
+

@@ -1,11 +1,6 @@
-from backend import Application
-from  backend import *
+from testallinfiles import Screen
+from testallinfiles import LoginScreen
 
-test = Application()
-
-print (test.user.read())
-print (test.returnAllMail())
-print (test.returnAllName())
-print (test.returnAllPassword())
-
-test.displayApp()
+if __name__ == "__main__":
+    app = Screen()
+    app.mainloop()
