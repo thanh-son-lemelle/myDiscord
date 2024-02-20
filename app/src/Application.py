@@ -1,3 +1,5 @@
+import threading
+
 from Db import Db
 from Message import Message
 
@@ -146,11 +148,21 @@ class Application:
         return self.user.login(name, password)
     
     def register(self):
-        test = ""
-        test = self.screen.register_page.get_input()
-        print("test:", test)
+        def test_thread():
+            while True:
+                test = ""
+                test = self.screen.register_page.get_input()
+                print("test:", test)
+        
+        thread = threading.Thread(target=test_thread)
+        thread.start()
 
 
+    def treating_data_loop(self):
+        while True:
+            if LoginScreen.status == True:
+                print("test")
+                break
 # #===============================================================================
 #         # display methodes
 # #===============================================================================
