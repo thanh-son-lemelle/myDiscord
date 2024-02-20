@@ -1,6 +1,5 @@
-from frontend.Screen import Screen
+from Application import Application
 # from frontend.LoginScreen import LoginScreen
 
-if __name__ == "__main__":
-    app = Screen()
-    app.mainloop()
+app = Application()
+app.screen.mainloop()

@@ -1,13 +1,13 @@
 # Version: 1.0
 # Date: 202-0-20
 
-from backend.Message import Message
-from backend.Reaction import Reaction
-from backend.Channel import Channel
-from backend.User import User
-from backend.Role import Role
+from src.backend.Message import Message
+from src.backend.Reaction import Reaction
+from src.backend.Channel import Channel
+from src.backend.User import User
+from src.backend.Role import Role
 
-from frontend.Screen import Screen
+from src.frontend.Screen import Screen
 
 
 class Application:
