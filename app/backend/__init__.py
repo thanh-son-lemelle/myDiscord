@@ -1,1 +1,1 @@
-from .Application import *
+from ..Application import *

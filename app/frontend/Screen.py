@@ -6,6 +6,7 @@ from Register import Register
 class Screen(ctk.CTk):
     def __init__(self):
         super().__init__()
+        self.register_page = Register(self)
         self.geometry("1482x834")
         self.config(bg="light green")
         self.title("Harmony")
@@ -16,6 +17,7 @@ class Screen(ctk.CTk):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
         self.displayLoginScreen()
+        
 
     def displayLoginScreen(self):
         self.login_screen = LoginScreen(self)
@@ -28,7 +30,6 @@ class Screen(ctk.CTk):
 
     def displayRegisterPage(self):
         self.login_screen.pack_forget()
-        self.register_page = Register(self)
         self.register_page.pack(expand=True, fill='both')
 
     def on_closing(self):

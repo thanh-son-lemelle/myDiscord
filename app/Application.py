@@ -5,17 +5,12 @@ from data.Channel import Channel
 from data.User import User
 from data.Role import Role
 
-from frontend.LoginScreen import LoginScreen
-from frontend.MainPage import MainPage
-from frontend.Register import Register
+from frontend.Screen import Screen
 
 class Application:
     def __init__(self) -> None:
 
-        self.login_screen = LoginScreen()
-        self.main_Page = MainPage()
-        self.register_Page = Register()
-        
+        self.screen = Screen()
         self.message = Message()
         self.message_channel = MessageChannel()
         self.role = Role()
@@ -126,27 +121,41 @@ class Application:
         listePassword = self.returnAllPassword()
         return listeMail, listePassword
 
+
 #===============================================================================
-        # display methodes
+        # methode to collect the data from the frontend
 #===============================================================================
 
+    def login(self, name, password):    
+        return self.user.login(name, password)
+    
+    def register(self):
+        test = ""
+        test = self.screen.register_page.get_input()
+        print("test:", test)
 
-    def displayApp(self):
 
-        while True:
-            root =  Application()
-            name , paswd = root.login_screen.displayLoginScreen()
-            print (name, paswd)
+# #===============================================================================
+#         # display methodes
+# #===============================================================================
 
-            if root.login_screen.get_login() == True:
-                root.main_Page.display()
-                print("test3")
-            elif root.login_screen.register:
-                name, firstname, email, password = root.register_Page.launch()
 
-                print("testNom:", name)
-                print("testPrénom:", firstname)
-                print("testEmail:", email)
-                print("testMot de passe:", password)
-            break
+#     def displayApp(self):
+
+#         while True:
+#             root =  Application()
+#             name , paswd = root.login_screen.displayLoginScreen()
+#             print (name, paswd)
+
+#             if root.login_screen.get_login() == True:
+#                 root.main_Page.display()
+#                 print("test3")
+#             elif root.login_screen.register:
+#                 name, firstname, email, password = root.register_Page.launch()
+
+#                 print("testNom:", name)
+#                 print("testPrénom:", firstname)
+#                 print("testEmail:", email)
+#                 print("testMot de passe:", password)
+#             break
 
