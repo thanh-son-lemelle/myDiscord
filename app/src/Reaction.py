@@ -27,4 +27,3 @@ class Reaction():
         query = 'DELETE FROM message_channel WHERE reactionID=%s'
         params = (reactionID)
         self.db.executeQuery(query, params)
-        

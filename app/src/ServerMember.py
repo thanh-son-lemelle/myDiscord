@@ -27,4 +27,3 @@ class ServerMember:
         query = 'DELETE FROM server_member WHERE membershipID=%s'
         params = (membershipID)
         self.db.executeQuery(query, params)
-
