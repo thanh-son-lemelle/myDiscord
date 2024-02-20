@@ -1,9 +1,6 @@
 from Db import Db
 from Message import Message
 
-<<<<<<<< HEAD:app/Application.py
-from frontend.Screen import Screen
-========
 from Channel import Channel
 from User import User
 from Role import Role
@@ -12,7 +9,6 @@ from LoginScreen import LoginScreen
 from MainPage import MainPage
 from Register import Register
 from Screen import Screen
->>>>>>>> main:app/src/Application.py
 
 class Application:
     def __init__(self) -> None:
@@ -154,17 +150,12 @@ class Application:
         test = self.screen.register_page.get_input()
         print("test:", test)
 
-<<<<<<<< HEAD:app/Application.py
-========
-"""    def displayApp(self):
->>>>>>>> main:app/src/Application.py
 
 # #===============================================================================
 #         # display methodes
 # #===============================================================================
 
 
-<<<<<<<< HEAD:app/Application.py
 #     def displayApp(self):
 
 #         while True:
@@ -183,13 +174,3 @@ class Application:
 #                 print("testEmail:", email)
 #                 print("testMot de passe:", password)
 #             break
-========
-            print("Nom:", name)
-            print("Prénom:", firstname)
-            print("Email:", email)
-            print("Mot de passe:", password)
-            break"""
-
-
->>>>>>>> main:app/src/Application.py
-
