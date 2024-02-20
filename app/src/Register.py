@@ -42,9 +42,10 @@ class Register(ctk.CTkFrame):
         self.entry4 = CTkEntry(self.frame)
         self.entry4.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
 
-        self.validation_button = CTkButton(self.frame, text="Valider", bg_color="green", fg_color="black", font=("Arial", 12), command=self.afficher_info and self.root.quit)
+        self.validation_button = CTkButton(self.frame, text="Valider", bg_color="green", fg_color="black", font=("Arial", 12), command=self.afficher_info)
         self.validation_button.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
+        
 
     def afficher_info(self):
         name = self.entry1.get()
@@ -92,16 +93,9 @@ class Register(ctk.CTkFrame):
         self.entry4 = CTkEntry(master=frame)
         self.entry4.pack(pady=12, padx=10)
 
-        validation_button = CTkButton(master=frame, text="Valider", command=self.get_input)
+        validation_button = CTkButton(master=frame, text="Valider", command='')
         validation_button.pack(pady=12, padx=10)
         
-    def get_input(self):
-        name = self.entry1.get()
-        firstname = self.entry2.get()
-        mail = self.entry3.get()
-        mdp = self.entry4.get()
-        return name, firstname, mail, mdp
-
 if __name__ =="__main__":
     test = Register()
     test.launch()

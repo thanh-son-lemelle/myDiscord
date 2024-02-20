@@ -1,4 +1,4 @@
-from .Db import Db
+from Db import Db
 
 class Message():
     def __init__(self) -> None:
@@ -9,9 +9,9 @@ class Message():
                         db = 'myDiscord'
                     )
         
-    def create(self,content):
-        query = "INSERT INTO message (content) VALUES (%s)"
-        params = (content,)
+    def create(self,content, userID, channelID):
+        query = "INSERT INTO message (content, userID, channelID) VALUES (%s, %s, %s)"
+        params = (content, userID, channelID)
         self.db.executeQuery(query, params)
     
     def read(self):

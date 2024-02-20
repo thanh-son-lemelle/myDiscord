@@ -1,4 +1,4 @@
-from .Db import Db
+from Db import Db
 
 class Role:
     def __init__(self) -> None:

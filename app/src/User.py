@@ -1,4 +1,4 @@
-from .Db import Db
+from Db import Db
 
 class User:
     def __init__(self) -> None:
@@ -44,6 +44,3 @@ class User:
     def allpassword (self):
         query = 'SELECT password FROM user'
         return self.db.executeQuery(query)
-    
-        
-

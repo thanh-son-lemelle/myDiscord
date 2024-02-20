@@ -8,7 +8,6 @@ class LoginScreen(ctk.CTkFrame):
         super().__init__(master)
         self.user_entry = ''
         self.user_pass = ''
-        self.register_user = False
         self.create_widgets()
     #testing
         """self.status = True
@@ -121,7 +120,7 @@ class LoginScreen(ctk.CTkFrame):
             self.user_pass = ctk.CTkEntry(master=frame, placeholder_text="mot de passe", show="*")
             self.user_pass.pack(pady=12, padx=10)
 
-            login_button = ctk.CTkButton(master=frame, text='Login', command=self.set_login_true)
+            login_button = ctk.CTkButton(master=frame, text='Login', command=self.go_to_MainPage)
             login_button.pack(pady=12, padx=10)
 
             remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me')
@@ -130,13 +129,15 @@ class LoginScreen(ctk.CTkFrame):
             register_button = ctk.CTkButton(master=frame, text='Register', command=self.set_register_true)
             register_button.pack(pady=12, padx=10)
 
-    def set_login_true(self):
-        self.login = True
+    def get_permission(self):
+        print ("test")
+
+    def go_to_MainPage(self):
+        self.get_permission()
         self.master.displayMainPage()
         # Handle further actions here
 
     def set_register_true(self):
-        self.register = True
         self.master.displayRegisterPage()
         # Handle further actions here
 
