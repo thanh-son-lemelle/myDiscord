@@ -1,21 +1,21 @@
-from Db import Db
-from Message import Message
-from MessageChannel import MessageChannel
-from Channel import Channel
-from User import User
-from Role import Role
+# Version: 1.0
+# Date: 202-0-20
 
-from LoginScreen import LoginScreen
-from MainPage import MainPage
-from Register import Register
-from Screen import Screen
+from backend.Message import Message
+from backend.Reaction import Reaction
+from backend.Channel import Channel
+from backend.User import User
+from backend.Role import Role
+
+from frontend.Screen import Screen
+
 
 class Application:
     def __init__(self) -> None:
 
         self.screen = Screen()
         self.message = Message()
-        self.message_channel = MessageChannel()
+        self.reaction = Reaction()
         self.role = Role()
         self.channel = Channel()
         self.user = User()
