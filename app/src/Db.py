@@ -10,8 +10,7 @@ class Db:
         self.passwd = passwd
         self.db = db
         self.port = port
-        self.conn = None
-        self.cursor = None
+     
 
     def connect(self):
         if self.db is not None:

@@ -1,6 +1,8 @@
-from testallinfiles import Screen
-from testallinfiles import LoginScreen
+from backend import Application
+from  backend import *
 
-if __name__ == "__main__":
-    app = Screen()
-    app.mainloop()
+test = Application()
+
+test.register() 
+
+test.screen.mainloop()

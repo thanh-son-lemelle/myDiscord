@@ -44,6 +44,3 @@ class User:
     def allpassword (self):
         query = 'SELECT password FROM user'
         return self.db.executeQuery(query)
-    
-        
-
