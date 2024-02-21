@@ -134,6 +134,10 @@ class Application:
             if user[3] == self.login_screen.get_user() and user[4] == self.login_screen.get_password():
                 return user[0]
             
+
+    def show_mess(self):
+        self.screen.main_page.get_message(self.returnAllMail())
+            
     
         
 
