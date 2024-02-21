@@ -167,6 +167,11 @@ class Application:
             if LoginScreen.status == True:
                 print("test")
                 break
+
+
+    def show_mess(self):
+        self.screen.main_page.get_message(self.returnAllMail())
+    
 # #===============================================================================
 #         # display methodes
 # #===============================================================================
