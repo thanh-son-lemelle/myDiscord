@@ -3,9 +3,9 @@ from Db import Db
 class User:
     def __init__(self) -> None:
         self.db = Db(
-                        host = 'localhost',
-                        user = 'root',
-                        passwd = 'hR!9gT+pLq6s',
+                        host = '10.10.82.210',
+                        user = 'lakhezoum',
+                        passwd = ':)?uX3v2E8mH',
                         db = 'myDiscord'
                     )
         
