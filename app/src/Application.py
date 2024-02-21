@@ -166,14 +166,31 @@ class Application:
         self.stop_thread = False
 
         while not self.stop_thread:
-            input_values = ""
 
             if self.screen.login_screen.get_login_status():
-                input_values = self.screen.login_screen.get_input_values()
+                self.checking_permision_to_login()
+            #elif self.screen.login_screen.get_register_status():
+                #suite du code pour gerer l'inscription
+                #input_values = self.screen.register_page.get_input()
+
+    def checking_permision_to_login(self):
+        input_values = self.screen.login_screen.get_input_values()
                 
-            elif self.screen.register_page.get_register_status():
-                input_values = self.screen.register_page.get_input()
-            print(input_values)
+        if self.screen.register_page.get_is_button_clicked():
+            print("button clicked") 
+            for user_name in self.returnAllName():
+                if input_values[0] == user_name[0]:
+                    corresponding_name = True
+                    print("correspondance trouvée")
+            for user_password in self.returnAllPassword():
+                if input_values[1] == user_password[0]:
+                    corresponding_password = True
+                    print("correspondance password trouvée")
+            if corresponding_name and corresponding_password:
+                self.screen.displayMainPage()
+                self.screen.login_screen.set_login_status(False)
+                print("correspondance trouvée")
+        print(input_values)
                     
 
     def receive_input(self):
