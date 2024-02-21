@@ -172,6 +172,9 @@ class Application:
             elif self.screen.register_page.get_register_status():
                 #suite du code pour gerer l'inscription
                 input_values = self.screen.register_page.get_input()
+
+            elif self.screen.main_page.get_mainPage_status():
+                self.show_mess()
                 print(input_values)
 
     def checking_permision_to_login(self):
