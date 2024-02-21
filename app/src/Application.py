@@ -170,9 +170,11 @@ class Application:
 
             if self.screen.login_screen.get_login_status():
                 input_values = self.screen.login_screen.get_input_values()
-            elif self.screen.login_screen.get_register_status():
+                
+            elif self.screen.register_page.get_register_status():
                 input_values = self.screen.register_page.get_input()
             print(input_values)
+                    
 
     def receive_input(self):
         self.thread = threading.Thread(target=self.test2_thread)

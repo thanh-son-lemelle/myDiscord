@@ -7,6 +7,7 @@ class Register(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         self.create_widgets()
+        self.is_running = True
     
     def create_widgets(self):
         frame = CTkFrame(master=self, width=1482, height=834, corner_radius=45)
@@ -44,7 +45,14 @@ class Register(ctk.CTkFrame):
         mail = self.entry3.get()
         mdp = self.entry4.get()
         return name, firstname, mail, mdp
+    
+    def get_register_status(self):
+        return self.is_running
+    
+    def set_register_status(self, status):
+        self.is_running = status
         
+    
 if __name__ =="__main__":
     test = Register()
     test.launch()
