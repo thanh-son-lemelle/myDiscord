@@ -1,4 +1,5 @@
 import threading
+import time
 
 from Db import Db
 from Message import Message
@@ -21,6 +22,8 @@ class Application:
         self.role = Role()
         self.channel = Channel()
         self.user = User()
+        self.is_running = False
+        self.thread = None
 
 #===============================================================================
         # message 
@@ -161,40 +164,63 @@ class Application:
         thread = threading.Thread(target=test_thread)
         thread.start()
 
+    def start(self):
+        self.is_running = True
+        self.thread = threading.Thread(target=self.test2_thread)
+        self.thread.start()
+
+    def stop(self):
+        self.is_running = False
+        if self.thread:
+            self.thread.join()
         
     def test2_thread(self):
-        self.stop_thread = False
-
-        while not self.stop_thread:
-
+        while self.is_running:
             if self.screen.login_screen.get_login_status():
-                self.checking_permision_to_login()
+                self.start_thread(self.checking_permision_to_login)
+
             elif self.screen.register_page.get_register_status():
-                #suite du code pour gerer l'inscription
-                input_values = self.screen.register_page.get_input()
+                self.quit(self.screen.register_page.get_register_status())
+                self.start_thread(self.get_input_from_register)
 
             elif self.screen.main_page.get_mainPage_status():
-                self.show_mess()
-                print(input_values)
+                self.quit(self.screen.main_page.get_mainPage_status())
+                self.start_thread(self.show_mess)
+            time.sleep(0.1)
+                
 
     def checking_permision_to_login(self):
-        input_values = self.screen.login_screen.get_input_values()
-                
-        if self.screen.login_screen.get_is_button_clicked():
-            print("button clicked") 
-            for user_name in self.returnAllName():
-                if input_values[0] == user_name[0]:
-                    corresponding_name = True
+        while self.screen.login_screen.get_login_status():
+            input_values = self.screen.login_screen.get_input_values()
+                    
+            if self.screen.login_screen.get_is_button_clicked():
+                print("button clicked") 
+                corresponding_name = False
+                corresponding_password = False
+                for user_name in self.returnAllName():
+                    if input_values[0] == user_name[0]:
+                        corresponding_name = True
+                        print("correspondance trouvée")
+                for user_password in self.returnAllPassword():
+                    if input_values[1] == user_password[0]:
+                        corresponding_password = True
+                        print("correspondance password trouvée")
+                if corresponding_name and corresponding_password:
+                    self.screen.displayMainPage()
+                    self.screen.login_screen.set_login_status(False)
                     print("correspondance trouvée")
-            for user_password in self.returnAllPassword():
-                if input_values[1] == user_password[0]:
-                    corresponding_password = True
-                    print("correspondance password trouvée")
-            if corresponding_name and corresponding_password:
-                self.screen.displayMainPage()
-                self.screen.login_screen.set_login_status(False)
-                print("correspondance trouvée")
-        print(input_values)
+            time.sleep(0.1)
+            print(input_values)
+
+    def get_input_from_register(self):
+        while self.screen.register_page.get_register_status():
+            input_values = self.screen.register_page.get_input()
+            print(input_values)
+            time.sleep(0.1)
+
+    def start_thread(self, methods):
+        self.thread = threading.Thread(target=methods)
+        self.thread.start()
                     
 
     def receive_input(self):
@@ -203,14 +229,16 @@ class Application:
         
 
 
-    def quit(self):
-        self.stop_thread = True
+    def quit(self, varible):
+        varible = False
         self.thread.join()
 
 
 
     def show_mess(self):
-        self.screen.main_page.get_message(self.returnAllMail())
+        while self.screen.main_page.get_mainPage_status():
+            self.screen.main_page.get_message(self.returnAllMail())
+            time.sleep(0.1)
     
 # #===============================================================================
 #         # display methodes

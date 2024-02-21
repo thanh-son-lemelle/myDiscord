@@ -41,7 +41,6 @@ class LoginScreen(ctk.CTkFrame):
         # Handle further actions here
 
     def go_to_registerPage(self):
-        self.register_status = True
         self.login_status = False
         self.is_button_clicked = True
         self.master.displayRegisterPage()
