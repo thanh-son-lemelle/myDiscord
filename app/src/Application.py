@@ -170,7 +170,12 @@ class Application:
 
             if self.screen.login_screen.get_login_status():
                 input_values = self.screen.login_screen.get_input_values()
+                if self.screen.login_screen.get_is_button_clicked():
+                    pass
+                    #suite du code
+
             elif self.screen.login_screen.get_register_status():
+                #suite du code pour gerer l'inscription
                 input_values = self.screen.register_page.get_input()
             print(input_values)
 
