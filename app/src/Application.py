@@ -177,7 +177,7 @@ class Application:
     def checking_permision_to_login(self):
         input_values = self.screen.login_screen.get_input_values()
                 
-        if self.screen.register_page.get_is_button_clicked():
+        if self.screen.login_screen.get_is_button_clicked():
             print("button clicked") 
             for user_name in self.returnAllName():
                 if input_values[0] == user_name[0]:
