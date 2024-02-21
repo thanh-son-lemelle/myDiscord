@@ -157,12 +157,29 @@ class Application:
         thread = threading.Thread(target=test_thread)
         thread.start()
 
+        
+    def test2_thread(self):
+        self.stop_thread = False
 
-    def treating_data_loop(self):
-        while True:
-            if LoginScreen.status == True:
-                print("test")
-                break
+        while not self.stop_thread:
+            input_values = ""
+
+            if self.screen.login_screen.get_login_status():
+                input_values = self.screen.login_screen.get_input_values()
+            elif self.screen.login_screen.get_register_status():
+                input_values = self.screen.register_page.get_input()
+            print(input_values)
+
+    def receive_input(self):
+        self.thread = threading.Thread(target=self.test2_thread)
+        self.thread.start()
+        
+
+
+    def quit(self):
+        self.stop_thread = True
+        self.thread.join()
+
 # #===============================================================================
 #         # display methodes
 # #===============================================================================
