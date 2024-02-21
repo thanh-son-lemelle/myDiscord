@@ -30,3 +30,4 @@ class Channel:
         params = (id)
         self.db.executeQuery(query, params)
 
+

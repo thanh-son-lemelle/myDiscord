@@ -7,6 +7,8 @@ class Screen(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.register_page = Register(self)
+        self.main_page = MainPage(self)
+        self.login_screen = LoginScreen(self)
         self.geometry("1482x834")
         self.config(bg="light green")
         self.title("Harmony")
@@ -20,12 +22,10 @@ class Screen(ctk.CTk):
         
 
     def displayLoginScreen(self):
-        self.login_screen = LoginScreen(self)
         self.login_screen.pack(expand=True, fill='both')
 
     def displayMainPage(self):
         self.login_screen.pack_forget()
-        self.main_page = MainPage(self)
         self.main_page.pack(expand=True, fill='both')
 
     def displayRegisterPage(self):
