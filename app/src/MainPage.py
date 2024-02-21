@@ -55,6 +55,7 @@ class MainPage(CTkFrame):
         return commande"""
 
         super().__init__(master)
+        self.running = True
         self.creat_widgets()
 
     def creat_widgets(self):
@@ -109,6 +110,15 @@ class MainPage(CTkFrame):
     def show_content(self):
         self.show_message()
         self.on_button_click()
+
+
+    def set_runnig(self):
+        self.running = False
+
+
+    def get_mainPage_status(self):
+        return self.running
+
 
 
     
