@@ -6,10 +6,11 @@ from PIL import Image
 class LoginScreen(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
-        self.user_entry = ''
-        self.user_pass = ''
+        self.login_status = True
+        self.register_status = False
+        self.is_button_clicked = False
         self.create_widgets()
-        
+
     def create_widgets(self):
             frame = ctk.CTkFrame(master=self, width=1482, height=834, corner_radius=45)
             frame.pack(pady=40, padx=300, fill='both', expand=False, side="top", anchor="center")
@@ -29,18 +30,25 @@ class LoginScreen(ctk.CTkFrame):
             remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me')
             remember_checkbox.pack(pady=12, padx=10)
 
-            register_button = ctk.CTkButton(master=frame, text='Register', command=self.set_register_true)
+            register_button = ctk.CTkButton(master=frame, text='Register', command=self.go_to_registerPage)
             register_button.pack(pady=12, padx=10)
 
     def get_permission(self):
         print ("test")
+
+    def get_is_button_clicked(self):
+        return self.is_button_clicked
+    
 
     def go_to_MainPage(self):
         self.get_permission()
         self.master.displayMainPage()
         # Handle further actions here
 
-    def set_register_true(self):
+    def go_to_registerPage(self):
+        self.register_status = True
+        self.login_status = False
+        self.is_button_clicked = True
         self.master.displayRegisterPage()
         # Handle further actions here
 
@@ -50,7 +58,7 @@ class LoginScreen(ctk.CTkFrame):
         return name, psswd
 
     def get_login_status(self):
-        return self.login
+        return self.login_status
 
     def get_register_status(self):
-        return self.register
+        return self.register_status
