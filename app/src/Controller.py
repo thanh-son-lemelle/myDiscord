@@ -63,7 +63,7 @@ class Controller:
         '''
 
     def read_message(self):
-        return self.model.readMessage()
+        return self.model.read_message_user()
 
         
 if __name__ == "__main__":
