@@ -144,6 +144,19 @@ class Model:
     def creatingMessage(self, content, userID, channelID):
         self.message.create(content, userID, channelID)
 
+    def getUserMail(self, mail):
+        return self.user.getUserMail(mail)
+    
+    def check_user_mail(self, mail):
+        result = self.getUserMail(mail)
+        print(result)
+        if result:
+            print('Mail already exists')
+            return False
+        else:
+            print('Mail does not exist')
+            return True
+
 
 
 #===============================================================================

@@ -45,7 +45,12 @@ class Controller:
     # during the registration, the controller will call the model to create a new user
         
     def get_register_variables(self, name, firstname, mail, mdp):
-        self.model.create(name, firstname, mail, mdp)
+        result = self.model.check_user_mail(mail)
+        if result:
+            self.model.creatingUser(name, firstname, mail, mdp)
+        else:
+            print('Mail already exists')
+            #pop un message d'erreur
         
         #testing
         '''

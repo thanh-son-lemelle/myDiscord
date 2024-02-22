@@ -46,5 +46,9 @@ class Register(ctk.CTkFrame):
         mail = self.entry3.get()
         mdp = self.entry4.get()
         self.master.get_register_variables(name, firstname, mail, mdp)
+        
 
-        # Handle further actions here
+
+        
+
+    # Handle further actions here
