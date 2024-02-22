@@ -112,5 +112,4 @@ class Db:
         self.executeQuery(query)
         print("Tables created successfully")
 
-db = Db('localhost', 'root', 'hR!9gT+pLq6s', 'myDiscord')
-db.connect()
+
