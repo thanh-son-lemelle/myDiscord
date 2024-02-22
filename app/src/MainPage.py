@@ -1,7 +1,6 @@
 import customtkinter as ctk
 from customtkinter import *
 from customtkinter.assets import *
-from CTkListbox import *
 
 class MainPage(CTkFrame):
     def __init__(self, master):
