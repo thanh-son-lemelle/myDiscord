@@ -57,4 +57,7 @@ class View(ctk.CTk):
     def get_sending_message(self, message):
         self.controller.get_sending_message(message)
 
+    def read_message(self):
+        return self.controller.read_message()
+
         

@@ -54,13 +54,16 @@ class Controller:
         '''
     
     def get_sending_message(self, message):
-        self.model.creatingMessage(message, self.userID, 1)
+        self.model.creatingMessage(message, self.userID, 2)
 
         #testing
         '''
         print(f'Button is sending: {message}')
         return message
         '''
+
+    def read_message(self):
+        return self.model.readMessage()
 
         
 if __name__ == "__main__":

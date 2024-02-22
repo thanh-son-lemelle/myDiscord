@@ -20,7 +20,7 @@ class MainPage(CTkFrame):
         self.entry = CTkEntry(frame2, text_color="#000000", fg_color="#FFFFFF", width=1200)
         self.entry.pack(side=ctk.BOTTOM, pady=10)  
 
-        self.result_label = CTkLabel(frame2, text="")
+        self.result_label = CTkLabel(frame2, text=self.master.read_message())
         self.result_label.pack(side=ctk.TOP, pady=10)
 
         label = CTkLabel(master=frame, text="Canaux", text_color="#000000")
