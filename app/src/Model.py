@@ -4,6 +4,7 @@ from Message import Message
 from Reaction import Reaction
 from Server import Server
 from User import User
+from Join import Join
 
 class Model:
     def __init__(self) -> None:
@@ -14,6 +15,7 @@ class Model:
         self.reaction = Reaction()
         self.server = Server()
         self.user = User()
+        self.join = Join()
 
 
 #===============================================================================
@@ -118,6 +120,15 @@ class Model:
     
     def returnAllPassword(self):
         return self.user.allpassword()
+    
+
+#===============================================================================
+        # join
+#===============================================================================
+
+
+    def read_message_user(self):
+        return self.join.get_message_and_user()
     
 #===============================================================================
 
