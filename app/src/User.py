@@ -3,9 +3,9 @@ from Db import Db
 class User:
     def __init__(self) -> None:
         self.db = Db(
-                        host = '10.10.82.210',
-                        user = 'lakhezoum',
-                        passwd = ':)?uX3v2E8mH',
+                        host = 'localhost',
+                        user = 'root',
+                        passwd = 'hR!9gT+pLq6s',
                         db = 'myDiscord'
                     )
         
@@ -32,15 +32,8 @@ class User:
         query = 'SELECT name FROM user WHERE id=%s'
         params =(id,)
         return self.db.executeQuery(query, params)
-
-    def userAllmail (self):
-        query = 'SELECT mail FROM user'
-        return self.db.executeQuery(query)
-
-    def userAllName (self):
-        query = 'SELECT name FROM user'
-        return self.db.executeQuery(query)
-
-    def allpassword (self):
-        query = 'SELECT password FROM user'
-        return self.db.executeQuery(query)
+    
+    def allowAccess(self, mail, password):
+        query = 'SELECT * FROM user WHERE mail=%s AND password=%s'
+        params = (mail, password)
+        return self.db.executeQuery(query, params)

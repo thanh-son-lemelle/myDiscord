@@ -7,7 +7,6 @@ class Register(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         self.create_widgets()
-        self.is_running = True
     
     def create_widgets(self):
         frame = CTkFrame(master=self, width=1482, height=834, corner_radius=45)
@@ -36,24 +35,16 @@ class Register(ctk.CTkFrame):
         self.entry4 = CTkEntry(master=frame)
         self.entry4.pack(pady=12, padx=10)
 
-        validation_button = CTkButton(master=frame, text="Valider", command=self.get_input)
+        validation_button = CTkButton(master=frame, text="Valider", command=self.on_click_validation)
         validation_button.pack(pady=12, padx=10)
-
-    def get_input(self):
+        
+    # to this point new methods
+        
+    def on_click_validation(self):
         name = self.entry1.get()
         firstname = self.entry2.get()
         mail = self.entry3.get()
         mdp = self.entry4.get()
-        return name, firstname, mail, mdp
-    
-    def get_register_status(self):
-        return self.is_running
-    
-    def set_register_status(self, status):
-        self.is_running = status
-        
-    
-if __name__ =="__main__":
-    test = Register()
-    test.launch()
+        self.master.get_register_variables(name, firstname, mail, mdp)
 
+        # Handle further actions here
