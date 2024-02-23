@@ -13,6 +13,7 @@ class Controller:
     def __init__(self) -> None:
         self.model = Model()
         self.view = View(self)
+        
 
     def main(self):
         self.view.main()
@@ -25,7 +26,8 @@ class Controller:
             self.store_user_information(result)
             self.view.displayMainPage()
         else:
-            print('Wrong username or password')
+            self.view.error.set_error("Wrong username or password")
+            self.view.error.creat_widgets(self.view.screen_width//2 ,self.view.screen_height//2)
 
         #testing
         print(self.userID, self.username, self.firstname, self.mail)

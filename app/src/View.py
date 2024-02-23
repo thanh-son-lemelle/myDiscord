@@ -4,6 +4,8 @@ from LoginScreen import LoginScreen
 from MainPage import MainPage
 from Register import Register
 
+from ErrorMessage import ErrorMessage
+
 class View(ctk.CTk):
     def __init__(self, controller):
         super().__init__()
@@ -22,6 +24,7 @@ class View(ctk.CTk):
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
+        self.error = ErrorMessage()
         self.displayLoginScreen()
     
     def main(self):
