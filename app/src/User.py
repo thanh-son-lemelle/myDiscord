@@ -4,8 +4,8 @@ class User:
     def __init__(self) -> None:
         self.db = Db(
                         host = '10.10.82.210',
-                        user = 'lakhezoum',
-                        passwd = ':)?uX3v2E8mH',
+                        user = 'adminmydiscord',
+                        passwd = 'Np/yy7>FD35@',
                         db = 'myDiscord'
                     )
         

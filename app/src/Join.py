@@ -4,8 +4,8 @@ class Join:
     def __init__(self) -> None:
         self.db = Db(
                         host = '10.10.82.210',
-                        user = 'hamici',
-                        passwd = 'X95(Wrx_8m!W',
+                        user = 'adminmydiscord',
+                        passwd = 'Np/yy7>FD35@',
                         db = 'myDiscord'
                     )
         
