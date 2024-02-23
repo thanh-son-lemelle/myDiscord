@@ -29,5 +29,3 @@ class Channel:
         query = 'DELETE FROM channel WHERE id=%s'
         params = (id)
         self.db.executeQuery(query, params)
-
-
