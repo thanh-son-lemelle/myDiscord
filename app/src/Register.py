@@ -7,7 +7,8 @@ class Register(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         self.create_widgets()
-    
+        self.click_validation = False
+
     def create_widgets(self):
         frame = CTkFrame(master=self, width=1482, height=834, corner_radius=45)
         frame.pack(pady=40, padx=300, fill='both', expand=False, side="top", anchor="center")
@@ -39,16 +40,20 @@ class Register(ctk.CTkFrame):
         validation_button.pack(pady=12, padx=10)
         
     # to this point new methods
-        
+
     def on_click_validation(self):
         name = self.entry1.get()
         firstname = self.entry2.get()
         mail = self.entry3.get()
         mdp = self.entry4.get()
-        self.master.get_register_variables(name, firstname, mail, mdp)
-        
-
-
-        
+        if not all([name, firstname, mail, mdp]):
+            print("Veuillez remplir tous les champs.")
+            return
+        if "@" not in mail:
+            print("Veuillez entrer une adresse e-mail valide avec @.")
+        else:
+            self.master.get_register_variables(name, firstname, mail, mdp)
+            self.master.register_page.pack_forget()
+            self.master.displayLoginScreen()
 
     # Handle further actions here

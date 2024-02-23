@@ -149,12 +149,12 @@ class Model:
     
     def check_user_mail(self, mail):
         result = self.getUserMail(mail)
-        print(result)
+        # print(result)
         if result:
-            print('Mail already exists')
+            # print('Mail already exists')
             return False
         else:
-            print('Mail does not exist')
+            # print('Mail does not exist')
             return True
 
 
