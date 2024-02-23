@@ -36,6 +36,10 @@ class MainPage(CTkFrame):
         button_vocal = CTkButton(master=frame, text="Salon vocal", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
         button_vocal.pack(padx=30, pady=20)
 
+
+        quit_button = CTkButton(master=frame, text="Disconnect",command= self.disconnect ,text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+        quit_button.pack(padx=30, pady=20,anchor = "s")
+
         button = CTkButton(self, text="Envoyer", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         button.pack(side=ctk.TOP,ipadx=40)
         
@@ -88,6 +92,11 @@ class MainPage(CTkFrame):
 
         self.result_label.configure(text=texte)
 
+
+
+    def disconnect(self):
+        self.master.main_page.pack_forget()
+        self.master.displayLoginScreen()
 
 
     
