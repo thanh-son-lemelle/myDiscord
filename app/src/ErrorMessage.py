@@ -2,20 +2,20 @@ import customtkinter as ctk
 from customtkinter import *  
 from customtkinter.assets import *
 
-class ErrorMessage():
+class ErrorMessage(ctk.CTk):
     def __init__(self):
+        super().__init__()
 
 
         self.window = ctk.CTk()
         self.window.title("ERROR")
+        self.protocol("WM_DELETE_WINDOW", self.close_pop_up)
         # self.window.minsize(width=300, height=300)
         # self.window.maxsize(width=400, height=300)
 
-        self.window._set_appearance_mode("dark")
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("green")
         self.text = ""
-
-
-
 
     def creat_widgets(self,pos_window_x,pos_window_y):
         

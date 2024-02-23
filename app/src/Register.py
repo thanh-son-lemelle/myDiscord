@@ -26,12 +26,12 @@ class Register(ctk.CTkFrame):
         self.entry2 = CTkEntry(master=frame)
         self.entry2.pack(pady=12, padx=10)
 
-        label3 = CTkLabel(master=frame, text="Mail:", font=("Arial", 12))
+        label3 = CTkLabel(master=frame, text="Mot de Passe:", font=("Arial", 12))
         label3.pack(pady=12, padx=10)
         self.entry3 = CTkEntry(master=frame)
         self.entry3.pack(pady=12, padx=10)
 
-        label4 = CTkLabel(master=frame, text="Mot de Passe:", font=("Arial", 12))
+        label4 = CTkLabel(master=frame, text="Mail:", font=("Arial", 12))
         label4.pack(pady=12, padx=10)
         self.entry4 = CTkEntry(master=frame)
         self.entry4.pack(pady=12, padx=10)
@@ -44,16 +44,8 @@ class Register(ctk.CTkFrame):
     def on_click_validation(self):
         name = self.entry1.get()
         firstname = self.entry2.get()
-        mail = self.entry3.get()
-        mdp = self.entry4.get()
-        if not all([name, firstname, mail, mdp]):
-            print("Veuillez remplir tous les champs.")
-            return
-        if "@" not in mail:
-            print("Veuillez entrer une adresse e-mail valide avec @.")
-        else:
-            self.master.get_register_variables(name, firstname, mail, mdp)
-            self.master.register_page.pack_forget()
-            self.master.displayLoginScreen()
+        mdp = self.entry3.get()
+        mail = self.entry4.get()
+        return self.master.get_register_variables(name, firstname, mdp, mail)   
 
     # Handle further actions here
