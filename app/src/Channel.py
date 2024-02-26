@@ -1,15 +1,10 @@
-from Db import Db
+from .Db import Db
 
 #À modifier car pas à jour avec la DB
 
 class Channel:
     def __init__(self) -> None:
-        self.db = Db(
-                        host = '10.10.82.210',
-                        user = 'adminmydiscord',
-                        passwd = 'Np/yy7>FD35@',
-                        db = 'myDiscord'
-                    )
+        self.db = Db()
         
     def create(self, channel_name, channel_type, server_id):
         query = "INSERT INTO channel (channel_name) VALUES (%s), (channel_type) VALUES (%s), (server_id) VALUES (%s)"

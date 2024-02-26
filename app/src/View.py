@@ -1,8 +1,8 @@
 import customtkinter as ctk
 
-from LoginScreen import LoginScreen
-from MainPage import MainPage
-from Register import Register
+from .LoginScreen import LoginScreen
+from .MainPage import MainPage
+from .Register import Register
 
 class View(ctk.CTk):
     def __init__(self, controller):
@@ -51,6 +51,9 @@ class View(ctk.CTk):
     def get_login_variables(self, username, password):
         self.controller.get_login_variables(username, password)
 
+    def get_remember_me_state(self, remember_me):
+        self.controller.get_remember_me_state(remember_me)
+
     def get_register_variables(self, name, firstname, mail, mdp):
         self.controller.get_register_variables(name, firstname, mail, mdp)
 
@@ -59,5 +62,8 @@ class View(ctk.CTk):
 
     def read_message(self):
         return self.controller.read_message()
+    
+    def login(self):
+        self.controller.login()
 
         

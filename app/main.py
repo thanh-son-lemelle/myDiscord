@@ -1,8 +1,6 @@
-from backend import Application
-from  backend import *
+from src import Controller
 
-test = Application()
 
-test.register() 
-
-test.screen.mainloop()
+if __name__ == '__main__':
+    controller = Controller.Controller()
+    controller.main()   

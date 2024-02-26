@@ -8,6 +8,7 @@ class LoginScreen(ctk.CTkFrame):
         super().__init__(master)
         self.value_name = tk.StringVar()
         self.value_password = tk.StringVar()
+        self.value_remember_me = tk.BooleanVar()
         self.login_status = True
         self.is_button_clicked = False
         self._create_widgets()
@@ -28,8 +29,8 @@ class LoginScreen(ctk.CTkFrame):
             login_button = ctk.CTkButton(master=frame, text='Login', command=(self.on_login_button_click))   
             login_button.pack(pady=12, padx=10)
 
-            remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me')
-            remember_checkbox.pack(pady=12, padx=10)
+            self.remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me', variable=self.value_remember_me, onvalue=True, offvalue=False)
+            self.remember_checkbox.pack(pady=12, padx=10)
 
             register_button = ctk.CTkButton(master=frame, text='Register', command=self.go_to_registerPage)
             register_button.pack(pady=12, padx=10)
@@ -37,9 +38,7 @@ class LoginScreen(ctk.CTkFrame):
     #new def until this point
             
     def on_login_button_click(self):
-        username = self.value_name.get()
-        password = self.value_password.get()
-        self.master.get_login_variables(username, password)
+        self.master.login()
             
     #old def until this point need to see if it is still useful
         
