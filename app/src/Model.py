@@ -141,8 +141,9 @@ class Model:
     
     def get_user_by_username(self, username):
         user_data = self.user.get_user_by_username(username)
+        print (user_data)
         if user_data:
-            return user_data['name'], user_data['password']
+            return user_data[1], user_data[3]
         else:
             return False
         

@@ -50,10 +50,10 @@ class Controller:
     
       
     def store_user_information(self, value):
-        self.userID = value['userID']
-        self.username = value['name']
-        self.firstname = value['firstname']
-        self.mail = value['mail']
+        self.userID = value[0]
+        self.username = value[1]
+        self.firstname = value[2]
+        self.mail = value[4]
     # during the registration, the controller will call the model to create a new user
     
     def get_sending_message(self, message):

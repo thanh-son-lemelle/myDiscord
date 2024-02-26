@@ -56,8 +56,7 @@ class Db:
     def executeQuery(self, query, params=None):
         self.connect()
         self.cursor.execute(query, params or ())
-        columns = [column[0] for column in self.cursor.description]  # Obtention des noms de colonnes
-        result = [dict(zip(columns, row)) for row in self.cursor.fetchall()]  # Conversion en liste de dictionnaires
+        result = self.cursor.fetchall()
         self.conn.commit()
         self.disconnect()
         return result
