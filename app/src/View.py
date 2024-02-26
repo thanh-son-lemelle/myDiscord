@@ -12,13 +12,13 @@ class View(ctk.CTk):
 
         self.controller = controller
 
-        self.geometry("1200x800")
+        self.geometry("1200x700")
         self.config(bg="light green")
         self.title("Harmony1.0")
         self.screen_width = self.winfo_screenwidth()
         self.screen_height = self.winfo_screenheight()
-        self.minsize(width=1200, height=800)
-        self.maxsize(width=1200, height=800)
+        self.minsize(width=1200, height=700)
+        self.maxsize(width=1200, height=700)
         self.resizable(False, False)
 
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
