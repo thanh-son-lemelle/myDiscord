@@ -35,17 +35,17 @@ class MainPage(CTkFrame):
         label = CTkLabel(master=frame, text="Canaux", text_color="#000000")
         label.pack(side="top", pady=(10, 0))
 
-        button_textuel = CTkButton(master=frame, text="Salon textuel", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
-        button_textuel.pack(padx=30, pady=20)
+        chat_textuel = CTkButton(master=frame, text="Main chat", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+        chat_textuel.pack(padx=30, pady=20)
 
-        button_vocal = CTkButton(master=frame, text="Salon vocal", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
-        button_vocal.pack(padx=30, pady=20)
+        voice_button = CTkButton(master=frame, text="Voice channel", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+        voice_button.pack(padx=30, pady=20)
 
 
         quit_button = CTkButton(master=frame, text="Disconnect",command= self.disconnect ,text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
         quit_button.pack(padx=30, pady=20,anchor = "s")
 
-        button = CTkButton(self, text="Envoyer", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
+        button = CTkButton(self, text="Send", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         button.pack(side=ctk.TOP,ipadx=40)
         
         self.label = tk.Label(self.master, text="Cliquez sur Enregistrer pour commencer l'enregistrement.")

@@ -38,6 +38,10 @@ class Register(ctk.CTkFrame):
 
         validation_button = CTkButton(master=frame, text="Valider", command=self.on_click_validation)
         validation_button.pack(pady=12, padx=10)
+
+
+        quit_button = CTkButton(master=frame, text="Go back", command=self.disconnect)
+        quit_button.pack(pady=12, padx=10)
         
     # to this point new methods
 
@@ -47,5 +51,11 @@ class Register(ctk.CTkFrame):
         mdp = self.entry3.get()
         mail = self.entry4.get()
         return self.master.get_register_variables(name, firstname, mdp, mail)   
+    
+
+
+    def disconnect(self):
+        self.master.register_page.pack_forget()
+        self.master.displayLoginScreen()
 
     # Handle further actions here
