@@ -10,7 +10,7 @@ import json
 from datetime import datetime
 from PIL import Image, ImageTk
 from tkinter import ttk
-
+import time
 class MainPage(CTkFrame):
     def __init__(self, master):
         
@@ -37,7 +37,14 @@ class MainPage(CTkFrame):
         self.result_label = CTkLabel(master=frame2, text="",justify="left",font=("Arial", 16))
         self.result_label.pack(anchor="w", expand=True,pady=10, padx=30)
 
-        self.test()
+        def threading1():
+            while True:
+
+                self.test()
+                time.sleep(1)
+
+        thread = threading.Thread(target=threading1)
+        thread.start()
 
         label = CTkLabel(master=frame, text="Canaux", text_color="#000000")
         label.pack(side="top", pady=(10, 0))

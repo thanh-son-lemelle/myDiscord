@@ -1,14 +1,13 @@
-from Channel import Channel
-from ServerMember import ServerMember
-from Message import Message
-from Reaction import Reaction
-from Server import Server
-from User import User
-from Join import Join
+from .Channel import Channel
+from .ServerMember import ServerMember
+from .Message import Message
+from .Reaction import Reaction
+from .Server import Server
+from .User import User
+from .Join import Join
 
 class Model:
-    def __init__(self) -> None:
-
+    def __init__(self) -> None: 
         self.channel = Channel()
         self.server_member = ServerMember()
         self.message = Message()
@@ -135,8 +134,40 @@ class Model:
 #===============================================================================
         # methodes for the frontend
 #===============================================================================
-    def allowingAccess(self, email, password):
-        return self.user.allowAccess(email, password)
+    
+    #===========================================================================
+    # methodes for the authentication service
+    #===========================================================================
+    
+    def get_user_by_username(self, username):
+        user_data = self.user.get_user_by_username(username)
+        if user_data:
+            return user_data['name'], user_data['password']
+        else:
+            return False
+        
+    def get_user_information_by_username(self, username):
+        user_data = self.user.get_user_by_username(username)
+        if user_data:
+            return user_data
+        else:
+            return False
+    
+    def get_user_by_mail(self, mail):
+        user_data = self.user.get_user_by_mail(mail)
+        if user_data:
+            return user_data['mail'], user_data['password']
+        else:
+            return False
+        
+    def save_auth_token(self, token):
+        self.user.save_auth_token(token)
+
+    def check_auth_token(self, token):
+        return self.user.check_auth_token(token)
+
+    #===========================================================================
+    
     
     def creatingUser(self, name, firstname, email, password):
         self.user.create(name, firstname, email, password)
@@ -156,6 +187,11 @@ class Model:
         else:
             print('Mail does not exist')
             return True
+        
+    def save_checkbox_state(self, state):
+        print(state)
+        """with open("remember_me_state.txt", "w") as f:
+            f.write(state)"""
 
     def check_input_register(self, name, firstname, mdp, mail):
         if not all([name, firstname, mdp, mail]):

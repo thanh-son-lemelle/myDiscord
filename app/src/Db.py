@@ -3,12 +3,12 @@ from mysql.connector import errorcode
 
 class Db:
 
-    def __init__(self, host, user, passwd, db, port=3306):
+    def __init__(self, port=3306):
 
-        self.host = host
-        self.user = user
-        self.passwd = passwd
-        self.db = db
+        self.host='10.10.92.164'
+        self.user = 'adminmydiscord'
+        self.passwd = 'Np/yy7>FD35@'
+        self.db = 'myDiscord'
         self.port = port
      
 
@@ -56,7 +56,8 @@ class Db:
     def executeQuery(self, query, params=None):
         self.connect()
         self.cursor.execute(query, params or ())
-        result = self.cursor.fetchall()
+        columns = [column[0] for column in self.cursor.description]  # Obtention des noms de colonnes
+        result = [dict(zip(columns, row)) for row in self.cursor.fetchall()]  # Conversion en liste de dictionnaires
         self.conn.commit()
         self.disconnect()
         return result

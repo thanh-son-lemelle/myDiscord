@@ -1,13 +1,8 @@
-from Db import Db
+from .Db import Db
 
 class User:
     def __init__(self) -> None:
-        self.db = Db(
-                        host = '10.10.92.164',
-                        user = 'adminmydiscord',
-                        passwd = 'Np/yy7>FD35@',
-                        db = 'myDiscord'
-                    )
+        self.db = Db()
         
     def create(self, name, firstname, password, mail):
         query = "INSERT INTO user (name, firstname, password, mail) VALUES (%s, %s, %s, %s)"
@@ -41,4 +36,31 @@ class User:
     def getUserMail(self, mail):
         query = 'SELECT mail FROM user WHERE mail=%s'
         params = (mail,)
+    
+    #===========================================================================
+    # methodes for authentication Service
+    #===========================================================================
+    
+    def get_user_by_username(self, username):
+        query = "SELECT * FROM `user` WHERE `name` = %s"
+        params = (username,)
+        result = self.db.executeQuery(query, params)
+        if result:
+            return result[0]
+        else:
+            return None
+    
+    def get_user_by_mail(self, mail):
+        query = 'SELECT * FROM user WHERE mail=%s'
+        params = (mail,)
+        return self.db.executeQuery(query, params)
+    
+    def save_auth_token(self, user_id, token):
+        query = "UPDATE `user` SET `auth_token` = %s WHERE `id` = %s"
+        params = (token, user_id)
+        self.db.executeQuery(query, params)
+
+    def check_auth_token(self, token):
+        query = "SELECT * FROM `user` WHERE `auth_token` = %s"
+        params = (token,)
         return self.db.executeQuery(query, params)

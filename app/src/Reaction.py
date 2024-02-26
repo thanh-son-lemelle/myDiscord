@@ -1,13 +1,8 @@
-from Db import Db
+from .Db import Db
 
 class Reaction():
     def __init__(self) -> None:
-        self.db = Db(
-                        host = '10.10.92.164',
-                        user = 'adminmydiscord',
-                        passwd = 'Np/yy7>FD35@',
-                        db = 'myDiscord'
-                    )
+        self.db = Db()
         
     def create(self, emoji, messageID, userID):
         query = "INSERT INTO message_channel (reactionID, emoji, messageID, userID) VALUES (%s, %s, %s, %s)"

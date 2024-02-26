@@ -1,13 +1,8 @@
-from Db import Db
+from .Db import Db
 
 class ServerMember:
     def __init__(self) -> None:
-        self.db = Db(
-                        host = '10.10.92.164',
-                        user = 'adminmydiscord',
-                        passwd = 'Np/yy7>FD35@',
-                        db = 'myDiscord'
-                    )
+        self.db = Db()
         
     def create(self, userID, serverID, role):
         query = "INSERT INTO server_member (userID, serverID, role) VALUES (%s, %s, %s)"

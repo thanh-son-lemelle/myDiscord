@@ -1,13 +1,8 @@
-from Db import Db
+from .Db import Db
 
 class Join:
     def __init__(self) -> None:
-        self.db = Db(
-                        host = '10.10.92.164',
-                        user = 'adminmydiscord',
-                        passwd = 'Np/yy7>FD35@',
-                        db = 'myDiscord'
-                    )
+        self.db = Db()
         
 
     def get_message_and_user(self):
