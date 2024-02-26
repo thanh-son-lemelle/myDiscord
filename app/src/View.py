@@ -3,6 +3,7 @@ import customtkinter as ctk
 from .LoginScreen import LoginScreen
 from .MainPage import MainPage
 from .Register import Register
+from .ErrorMessage import ErrorMessage
 
 class View(ctk.CTk):
     def __init__(self, controller):
