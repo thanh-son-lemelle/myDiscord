@@ -193,8 +193,27 @@ class Model:
         """with open("remember_me_state.txt", "w") as f:
             f.write(state)"""
 
+    def check_input_register(self, name, firstname, mdp, mail):
+        if not all([name, firstname, mdp, mail]):
+            print("Veuillez remplir tous les champs.")
+            
+            return False , "Veuillez remplir tous les champs."
+        elif "@" not in mail:
+            print("Veuillez entrer une adresse e-mail valide avec @.")
+            return False , "Veuillez entrer une adresse e-mail valide avec @."
+        result = self.check_user_mail(mail)
+        if result == True:
+            print("Mail valide test dans check_input_register")
+            
+            return True , ""
+        
+        else: 
+            print("Mail existe déjà")
+            # self.master.get_register_variables(name, firstname, mail, mdp)
+            # self.master.register_page.pack_forget()
 
-
+            return False, "Mail existe déjà"
+        
 #===============================================================================
         # methodes from the controller
 #===============================================================================

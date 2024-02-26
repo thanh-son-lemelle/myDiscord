@@ -36,7 +36,6 @@ class User:
     def getUserMail(self, mail):
         query = 'SELECT mail FROM user WHERE mail=%s'
         params = (mail,)
-        return self.db.executeQuery(query, params)
     
     #===========================================================================
     # methodes for authentication Service

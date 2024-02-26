@@ -22,6 +22,7 @@ class View(ctk.CTk):
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
+        self.error = ErrorMessage()
         self.displayLoginScreen()
     
     def main(self):
