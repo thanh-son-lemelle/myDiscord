@@ -32,9 +32,9 @@ class Controller:
 
     #testing
     def automatic_login(self):
-        result = self.service.automatic_login(self.get_remember_me_state())
+        result, username = self.service.automatic_login(self.get_remember_me_state())
         if result == True:
-            """self.store_user_information(self.model.get_user_information_by_username(username))"""
+            self.store_user_information(self.model.get_user_information_by_username(username))
             self.view.displayMainPage()
 
     def login(self):
