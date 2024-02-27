@@ -6,9 +6,9 @@ from PIL import Image
 class LoginScreen(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
-        self.value_name = tk.StringVar()
-        self.value_password = tk.StringVar()
-        self.value_remember_me = tk.BooleanVar()
+        self.value_name = ctk.StringVar()
+        self.value_password = ctk.StringVar()
+        self.value_remember_me = ctk.BooleanVar(value=self.master.get_remember_me_state())
         self.login_status = True
         self.is_button_clicked = False
         self._create_widgets()

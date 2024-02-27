@@ -55,9 +55,9 @@ class User:
         params = (mail,)
         return self.db.executeQuery(query, params)
     
-    def save_auth_token(self, user_id, token):
-        query = "UPDATE `user` SET `auth_token` = %s WHERE `id` = %s"
-        params = (token, user_id)
+    def save_auth_token(self, usermail, token):
+        query = "UPDATE `user` SET `auth_token` = %s WHERE `mail` = %s"
+        params = (token, usermail)
         self.db.executeQuery(query, params)
 
     def check_auth_token(self, token):

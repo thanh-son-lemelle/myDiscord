@@ -161,8 +161,8 @@ class Model:
         else:
             return False
         
-    def save_auth_token(self, token):
-        self.user.save_auth_token(token)
+    def save_auth_token(self,usermail, token):
+        self.user.save_auth_token(usermail, token)
 
     def check_auth_token(self, token):
         return self.user.check_auth_token(token)

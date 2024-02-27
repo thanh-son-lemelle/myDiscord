@@ -53,9 +53,6 @@ class View(ctk.CTk):
     def get_login_variables(self, username, password):
         self.controller.get_login_variables(username, password)
 
-    def get_remember_me_state(self, remember_me):
-        self.controller.get_remember_me_state(remember_me)
-
     def get_register_variables(self, name, firstname, mail, mdp):
         self.controller.get_register_variables(name, firstname, mail, mdp)
 
@@ -67,5 +64,8 @@ class View(ctk.CTk):
     
     def login(self):
         self.controller.login()
+
+    def get_remember_me_state(self):
+        return self.controller.get_remember_me_state()
 
         
