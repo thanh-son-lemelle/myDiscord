@@ -36,6 +36,7 @@ class Controller:
         if result is not None:
             result, username = result
             if result == True:
+                print(username)
                 self.store_user_information(self.model.get_user_information_by_username(username))
                 self.view.displayMainPage()
 
@@ -69,7 +70,7 @@ class Controller:
     # during the registration, the controller will call the model to create a new user
     
     def get_sending_message(self, message):
-        self.model.creatingMessage(message, self.userID, 2)
+        self.model.creatingMessage(message, self.userID, 1, 2)
 
         #testing
         '''

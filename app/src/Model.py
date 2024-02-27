@@ -173,8 +173,8 @@ class Model:
     def creatingUser(self, name, firstname, email, password):
         self.user.create(name, firstname, email, password)
 
-    def creatingMessage(self, content, userID, channelID, type):
-        self.message.create(content, userID, channelID, type)
+    def creatingMessage(self, content, userID, type, channelID):
+        self.message.create(content, userID, type, channelID)
 
     def getUserMail(self, mail):
         return self.user.getUserMail(mail)
