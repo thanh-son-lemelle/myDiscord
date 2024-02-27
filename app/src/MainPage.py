@@ -61,13 +61,16 @@ class MainPage(CTkFrame):
         quit_button.pack(padx=30, pady=20,anchor = "s")
 
         button = CTkButton(self, text="Send", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
-        button.pack(side=ctk.TOP,ipadx=40)
+        button.pack(side=ctk.TOP,ipadx=10)
+        
+        emoji_button = CTkButton(self, text="Choose an Emoji", command=self.pick_emoji, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
+        emoji_button.pack(side=ctk.TOP,ipadx=10)
 
         self.record_button = CTkButton(self, text="Click to record", command=self.toggle_recording, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         self.record_button.pack(side=ctk.TOP,ipadx=10)
 
-        emoji_button = CTkButton(self, text="Choose an Emoji", command=self.pick_emoji, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
-        emoji_button.pack(side=ctk.TOP,ipadx=20)
+        self.play_button = CTkButton(self, text="Play recording", command=self.play_selected, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
+        self.play_button.pack(side=ctk.TOP,ipadx=10)
 
         self.emoji_picker = None
 
@@ -169,6 +172,18 @@ class MainPage(CTkFrame):
      
         self.recordings.append(filename)
 
+    def update_listbox(self):
+        self.listbox.delete(0, tk.END)
+        for recording in self.recordings:
+            self.listbox.insert(tk.END, recording)
+
+    def play_selected(self):
+        selected_index = self.listbox.curselection()
+        if selected_index:
+            selected_index = int(selected_index[0])
+            filename = self.recordings[selected_index]
+            os.system(f"start afplay {os.path.join('audio_recordings', filename)}")
+
 
     # methods for emojis
     def send_message(self):
@@ -180,8 +195,8 @@ class MainPage(CTkFrame):
     def pick_emoji(self):
         if not self.emoji_picker:
             self.emoji_picker = tk.Toplevel(self)
-
             emoji_listbox = tk.Listbox(self.emoji_picker, width=20, height=10)
+            
             for emoji in self.emojis:
                 emoji_listbox.insert(tk.END, emoji)
             emoji_listbox.pack(padx=20, pady=20)
