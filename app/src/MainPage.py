@@ -11,6 +11,8 @@ from datetime import datetime
 from PIL import Image, ImageTk
 from tkinter import ttk
 import time
+import emoji 
+
 class MainPage(CTkFrame):
     def __init__(self, master):
         
@@ -119,9 +121,12 @@ class MainPage(CTkFrame):
 
     def test(self):
         texte = ""
-        for tup in  self.master.read_message():
-            texte += str(tup) + "\n" + "\n"
-
+        for tup in self.master.read_message():
+            # Convertir les éléments du tuple en chaînes de caractères
+            str_tup = [str(item) if not isinstance(item, bytes) else item.decode('utf-8') for item in tup]
+            # Concaténer les éléments du tuple avec des espaces entre eux
+            texte += " ".join(str_tup) + "\n\n"
+        
         self.result_label.configure(text=texte)
 
 
@@ -164,10 +169,7 @@ class MainPage(CTkFrame):
      
         self.recordings.append(filename)
 
-        with open('audio.json', 'w') as f:
-            json.dump(self.recordings, f)
 
- 
     # methods for emojis
     def send_message(self):
         message = self.entry.get()

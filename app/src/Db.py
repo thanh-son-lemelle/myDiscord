@@ -5,7 +5,7 @@ class Db:
 
     def __init__(self, port=3306):
 
-        self.host='10.10.92.164'
+        self.host='10.10.95.75'
         self.user = 'adminmydiscord'
         self.passwd = 'Np/yy7>FD35@'
         self.db = 'myDiscord'
