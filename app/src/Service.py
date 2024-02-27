@@ -1,27 +1,42 @@
 import bcrypt
 import uuid
 import hashlib
+import keyring
+import getpass
 
 from .Model import Model
 
 class Service:
     def __init__(self):
+        self.auth_token = self.get_local_auth_token()
         self.auth = False
         self.model = Model()
 
     #===========================================================================
     # methodes for authentication
     #===========================================================================
+        
+    def automatic_login(self, remember_me_value):
+        if remember_me_value == True and self.auth_token != None:
+            result = self.model.check_auth_token(self.auth_token)
+            print(result)
+            if result:
+                self.save_checkbox_state(remember_me_value)
+                self.auth = True
+                return self.auth
+            else:
+                self.auth = False
+                return self.auth
 
-    def login(self, username, password, remember_me=False):
-
+    def login(self, username, password, remember_me_value=False):
         if self.validate_credentials(username, password):
-            if remember_me:
+            if remember_me_value:
+                usermail = self.model.get_user_information_by_username(username)[4]
                 auth_token = str(uuid.uuid4())
-                self.model.save_auth_token(username, auth_token)
-
+                self.model.save_auth_token(usermail, auth_token)
+                self.set_local_auth_token(auth_token)
+            self.save_checkbox_state(remember_me_value)
             self.auth = True
-
         else:
             print('Wrong username or password')
         return self.auth
@@ -39,6 +54,28 @@ class Service:
                 return True
         # Nom d'utilisateur introuvable ou mot de passe incorrect
         return False
+    
+    def set_local_auth_token(self, auth_token):
+        keyring.set_password('Harmony_password', getpass.getuser(), auth_token)
+
+    def get_local_auth_token(self):
+        token = keyring.get_password('Harmony_password', getpass.getuser())
+        return token
+    
+    def save_checkbox_state(self, state):
+        keyring.set_password('Harmony_checkbox', 'remember_me_value', str(state))
+
+    def load_checkbox_state(self):
+        state_str = keyring.get_password('Harmony_checkbox', 'remember_me_value')
+        if state_str is not None:
+            if state_str == 'True':
+                return True
+            else:    
+                return False
+        else:
+            return False
+        
+        
 
     def logout(self):
         self.auth = False
