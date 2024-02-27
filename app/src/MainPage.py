@@ -24,7 +24,10 @@ class MainPage(CTkFrame):
         self.recording = False
         self.recordings = []
         self.messages = []
-      
+        self.listbox = tk.Listbox(self)
+        self.listbox.pack()
+        self.listbox.bind("<Double-Button-1>", self.play_selected)
+    
     def creat_widgets(self):
         
         frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=700)
@@ -127,18 +130,12 @@ class MainPage(CTkFrame):
         for tup in self.master.read_message():
             # Convert the elements of the tuple to strings
             str_tup = [str(item) if not isinstance(item, bytes) else item.decode('utf-8') for item in tup]
-            # Add a colon after the first element of the tuple
-            str_tup[0] += ":"
-
-            str_tup[2] = "(" + str_tup[2] + ")"
-
-            
+       
             # Concatenate the elements of the tuple with spaces between them
             texte += " \n\n ".join(str_tup) + "\n\n"
 
         # Set the result as the text of a label
         self.result_label.configure(text=texte)
-
 
 
     # methods for recording audio

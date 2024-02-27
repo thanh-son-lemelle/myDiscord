@@ -51,14 +51,14 @@ class Model:
 #===============================================================================
         # message 
 #===============================================================================
-    def createMessage(self, content, userID, channelID):
-        self.message.create(content, userID, channelID)
+    def createMessage(self, content, userID, channelID, type):
+        self.message.create(content, userID, channelID, type)
     
     def readMessage(self):
         return self.message.read()
     
-    def updateMessage(self, messageID, content, userID, channelID):
-        self.message.update(messageID, content, userID, channelID)
+    def updateMessage(self, messageID, content, userID, channelID, type):
+        self.message.update(messageID, content, userID, channelID, type)
 
     def deleteMessage(self, messageID):
         self.message.delete(messageID)
@@ -173,8 +173,8 @@ class Model:
     def creatingUser(self, name, firstname, email, password):
         self.user.create(name, firstname, email, password)
 
-    def creatingMessage(self, content, userID, channelID):
-        self.message.create(content, userID, channelID)
+    def creatingMessage(self, content, userID, channelID, type):
+        self.message.create(content, userID, channelID, type)
 
     def getUserMail(self, mail):
         return self.user.getUserMail(mail)

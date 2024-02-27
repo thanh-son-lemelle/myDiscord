@@ -4,9 +4,9 @@ class Message():
     def __init__(self) -> None:
         self.db = Db()
         
-    def create(self,content, userID, channelID):
-        query = "INSERT INTO message (content, userID, channelID) VALUES (%s, %s, %s)"
-        params = (content, userID, channelID)
+    def create(self,content, userID, channelID, type):
+        query = "INSERT INTO message (content, userID, channelID, type) VALUES (%s, %s, %s, %s)"
+        params = (content, userID, channelID, type)
         self.db.executeQuery(query, params)
     
     def read(self):
