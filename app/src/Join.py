@@ -6,6 +6,6 @@ class Join:
         
 
     def get_message_and_user(self):
-        query = 'SELECT user.name AS username , message.content , message.date_time FROM message INNER JOIN user ON message.userID = user.userID'
+        query = 'SELECT user.name AS username , message.content , message.date_time FROM message INNER JOIN user ON message.userID = user.userID ORDER BY message.date_time ASC;'
         return self.db.executeQuery(query)
         
