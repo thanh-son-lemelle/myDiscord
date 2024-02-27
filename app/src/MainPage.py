@@ -125,12 +125,20 @@ class MainPage(CTkFrame):
     def test(self):
         texte = ""
         for tup in self.master.read_message():
-            # Convertir les éléments du tuple en chaînes de caractères
+            # Convert the elements of the tuple to strings
             str_tup = [str(item) if not isinstance(item, bytes) else item.decode('utf-8') for item in tup]
-            # Concaténer les éléments du tuple avec des espaces entre eux
-            texte += " ".join(str_tup) + "\n\n"
-        
+            # Add a colon after the first element of the tuple
+            str_tup[0] += ":"
+
+            str_tup[2] = "(" + str_tup[2] + ")"
+
+            
+            # Concatenate the elements of the tuple with spaces between them
+            texte += " \n\n ".join(str_tup) + "\n\n"
+
+        # Set the result as the text of a label
         self.result_label.configure(text=texte)
+
 
 
     # methods for recording audio
