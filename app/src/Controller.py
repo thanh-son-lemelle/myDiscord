@@ -13,8 +13,11 @@ class Controller:
     
     def __init__(self) -> None:
         self.model = Model()
-        self.view = View(self)
         self.service = Service()
+        self.view = View(self)
+        self.automatic_login()
+
+        
 
     def main(self):
         self.view.main()
@@ -28,9 +31,16 @@ class Controller:
 
 
     #testing
+    def automatic_login(self):
+        result = self.service.automatic_login(self.get_remember_me_state())
+        if result == True:
+            """self.store_user_information(self.model.get_user_information_by_username(username))"""
+            self.view.displayMainPage()
+
     def login(self):
 
         username, password = self.get_login_variables()
+        print(self.view.login_screen.value_remember_me.get())
         result = self.service.login(username, password, self.view.login_screen.value_remember_me.get())
         if result == True:
             self.store_user_information(self.model.get_user_information_by_username(username))
@@ -80,6 +90,11 @@ class Controller:
     
     def getRememberMe(self):
         return self.view.login_screen.value_remember_me.get()
+    
+
+    #===============================================================================
+    def get_remember_me_state(self):
+        return self.service.load_checkbox_state()
 
         
 if __name__ == "__main__":
