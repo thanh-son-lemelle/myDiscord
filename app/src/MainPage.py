@@ -12,20 +12,21 @@ from PIL import Image, ImageTk
 from tkinter import ttk
 import time
 import emoji 
+import winsound
 
 class MainPage(CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         self.running = True
         self.creat_widgets()
-        """self.commande = "" 
+        self.commande = "" 
         self.recording = False
         self.recordings = []
+        for elem in self.master.get_audio_message():
+            if elem not in self.recordings:
+                self.recordings.append(elem)
         self.messages = []
-        self.listbox = tk.Listbox(self)
-        self.listbox.pack()
-        self.listbox.bind("<Double-Button-1>", self.play_selected)"""
-    
+        
     def creat_widgets(self):
         
         frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=700)
@@ -64,7 +65,7 @@ class MainPage(CTkFrame):
         button = CTkButton(self, text="Send", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         button.pack(side=ctk.TOP,ipadx=10)
         
-        """emoji_button = CTkButton(self, text="Choose an Emoji", command=self.pick_emoji, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
+        emoji_button = CTkButton(self, text="Choose an Emoji", command=self.pick_emoji, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         emoji_button.pack(side=ctk.TOP,ipadx=10)
 
         self.record_button = CTkButton(self, text="Click to record", command=self.toggle_recording, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
@@ -75,7 +76,13 @@ class MainPage(CTkFrame):
 
         self.emoji_picker = None
 
-        self.emojis = ["😊", "😂", "😍", "😎", "🤔", "😴", "🥳", "🎉", "❤️", "👍"]""" 
+        self.emojis = ["😊", "😂", "😍", "😎", "🤔", "😴", "🥳", "🎉", "❤️", "👍"]
+
+        self.listbox = tk.Listbox(self,width=50)
+        self.listbox.bind("<Double-Button-1>",self.play_selected)
+        self.listbox.pack()
+        
+    
 
         # image = Image.open("app\image\cloche notif.png")  
         # image = image.resize((50, 50))
@@ -137,58 +144,6 @@ class MainPage(CTkFrame):
         self.result_label.configure(text=texte)
 
 
-    """# methods for recording audio
-    def start_recording(self):
-        self.recording = True
-        self.record_button.configure(text="Stop recording")
-        self.recording_thread = threading.Thread(target=self.record_audio)
-        self.recording_thread.start()
-
-    def stop_recording(self):
-        self.recording = False
-        self.record_button.configure(text="Recording")
-
-    def toggle_recording(self):
-        if self.recording:
-            self.stop_recording()
-        else:
-            self.start_recording()
-
-    def record_audio(self):
-        duration = 10  
-        fs = 44100  
-        try:
-            filename = f"enregistrement_{datetime.now().strftime('%Y%m%d_%H%M%S')}.wav"
-            with sf.SoundFile(filename, mode='x', samplerate=fs, channels=2) as file:
-                with sd.InputStream(callback=lambda data, frames, time, status: file.write(data)):
-                    sd.sleep(int(duration * 1000))
-            self.save_audio(filename)
-        except Exception as e:
-            print("Une erreur est survenue lors de l'enregistrement :", e)
-        finally:
-            self.master.after(10, self.stop_recording)  
-
-    def save_audio(self, filename):
-        if not os.path.exists("audio_recordings"):
-            os.makedirs("audio_recordings")
-        os.rename(filename, os.path.join("audio_recordings", filename))
-        print(f"Enregistrement audio sauvegardé sous : audio_recordings/{filename}")
-     
-        self.recordings.append(filename)
-
-    def update_listbox(self):
-        self.listbox.delete(0, tk.END)
-        for recording in self.recordings:
-            self.listbox.insert(tk.END, recording)
-
-    def play_selected(self):
-        selected_index = self.listbox.curselection()
-        if selected_index:
-            selected_index = int(selected_index[0])
-            filename = self.recordings[selected_index]
-            os.system(f"start afplay {os.path.join('audio_recordings', filename)}")
-
-
     # methods for emojis
     def send_message(self):
         message = self.entry.get()
@@ -220,7 +175,63 @@ class MainPage(CTkFrame):
     def close_emoji_picker(self):
         if self.emoji_picker:
             self.emoji_picker.destroy()
-            self.emoji_picker = None"""
+            self.emoji_picker = None
+
+
+ # methods for recording audio
+    def start_recording(self):
+        self.recording = True
+        self.record_button.configure(text="Stop recording")
+        self.recording_thread = threading.Thread(target=self.record_audio)
+        self.recording_thread.start()
+
+    def stop_recording(self):
+        self.recording = False
+        self.record_button.configure(text="Recording")
+
+    def toggle_recording(self):
+        if self.recording:
+            self.stop_recording()
+        else:
+            self.start_recording()
+
+    def record_audio(self):
+        duration = 10  
+        fs = 44100  
+        try:
+            filename = f"enregistrement_{datetime.now().strftime('%Y%m%d_%H%M%S')}.wav"
+            with sf.SoundFile(filename, mode='x', samplerate=fs, channels=2) as file:
+                with sd.InputStream(callback=lambda data, frames, time, status: file.write(data)):
+                    sd.sleep(int(duration * 1000))
+            self.save_audio(filename)
+        except Exception as e:
+            print("Une erreur est survenue lors de l'enregistrement :", e)
+        finally:
+            self.master.after(10, self.stop_recording)  
+            
+    def save_audio(self, filename):
+        if not os.path.exists("audio_recordings"):
+            os.makedirs("audio_recordings")
+        os.rename(filename, os.path.join("audio_recordings", filename))
+        print(f"Enregistrement audio sauvegardé sous : audio_recordings/{filename}")
+        if filename not in self.recordings:
+            self.recordings.append(filename)
+            self.master.get_save_audio(filename)
+            self.update_listbox()
+
+
+    def update_listbox(self):
+        for recording in self.master.get_audio_message():
+            
+            self.listbox.insert(tk.END, recording)
+            
+
+    def play_selected(self,event):
+        print("Playing selected recording")
+        selected_index = self.listbox.curselection()[0]
+        filename = self.recordings[selected_index]
+        winsound.PlaySound(f"audio_recordings/{filename}", winsound.SND_FILENAME)
+
 
 
     # # methods for notifications

@@ -75,3 +75,9 @@ class View(ctk.CTk):
 
     def get_remember_me_state(self):
         return self.controller.get_remember_me_state()
+    
+    def get_save_audio(self,filename):
+        self.controller.get_audio(filename)
+
+    def get_audio_message(self):
+        return self.controller.read_message_type2()
