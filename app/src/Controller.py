@@ -98,6 +98,9 @@ class Controller:
     #===============================================================================
     def get_remember_me_state(self):
         return self.service.load_checkbox_state()
+    
+    def get_auth(self):
+        return self.service.auth
 
         
 if __name__ == "__main__":

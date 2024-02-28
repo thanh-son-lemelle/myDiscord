@@ -3,7 +3,7 @@ import customtkinter as ctk
 from .LoginScreen import LoginScreen
 from .MainPage import MainPage
 from .Register import Register
-from .ErrorMessage import ErrorMessage
+"""from .ErrorMessage import ErrorMessage"""
 
 class View(ctk.CTk):
     def __init__(self, controller):
@@ -23,11 +23,13 @@ class View(ctk.CTk):
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
-        self.error = ErrorMessage()
+        """self.error = ErrorMessage()"""
         self.displayLoginScreen()
     
     def main(self):
+        print("Main")
         self.mainloop()
+        print("End of the mainlopp")
 
     
     def displayLoginScreen(self):
@@ -45,7 +47,13 @@ class View(ctk.CTk):
         self.register_page.pack(expand=True, fill='both')
 
     def on_closing(self):
+        print("Closing")
+        if self.controller.get_auth() == True:
+            self.main_page.running = False
+            self.main_page.thread.join()
+            print("Thread closed")
         self.destroy()
+        print("Window closed")
 #===============================================================================
         # variables from Controller
 #===============================================================================
@@ -67,5 +75,3 @@ class View(ctk.CTk):
 
     def get_remember_me_state(self):
         return self.controller.get_remember_me_state()
-
-        

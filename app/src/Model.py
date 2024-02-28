@@ -84,7 +84,7 @@ class Model:
     def createServer(self, server_name, description, owner, server_image):
         self.server.create(server_name, description, owner, server_image)
     
-    def readServern(self):
+    def readServer(self):
         return self.server.read()
     
     def updateServer(self, serverID, server_name, description, owner, server_image):

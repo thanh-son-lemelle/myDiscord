@@ -15,18 +15,16 @@ import emoji
 
 class MainPage(CTkFrame):
     def __init__(self, master):
-        
         super().__init__(master)
         self.running = True
         self.creat_widgets()
-        self.master = master
-        self.commande = "" 
+        """self.commande = "" 
         self.recording = False
         self.recordings = []
         self.messages = []
         self.listbox = tk.Listbox(self)
         self.listbox.pack()
-        self.listbox.bind("<Double-Button-1>", self.play_selected)
+        self.listbox.bind("<Double-Button-1>", self.play_selected)"""
     
     def creat_widgets(self):
         
@@ -43,13 +41,13 @@ class MainPage(CTkFrame):
         self.result_label.pack(anchor="w", expand=True,pady=10, padx=30)
 
         def threading1():
-            while True:
+             while self.running == True:
 
                 self.test()
                 time.sleep(1)
 
-        thread = threading.Thread(target=threading1)
-        thread.start()
+        self.thread = threading.Thread(target=threading1)
+        self.thread.start()
 
         label = CTkLabel(master=frame, text="Canaux", text_color="#000000")
         label.pack(side="top", pady=(10, 0))
@@ -66,7 +64,7 @@ class MainPage(CTkFrame):
         button = CTkButton(self, text="Send", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         button.pack(side=ctk.TOP,ipadx=10)
         
-        emoji_button = CTkButton(self, text="Choose an Emoji", command=self.pick_emoji, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
+        """emoji_button = CTkButton(self, text="Choose an Emoji", command=self.pick_emoji, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         emoji_button.pack(side=ctk.TOP,ipadx=10)
 
         self.record_button = CTkButton(self, text="Click to record", command=self.toggle_recording, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
@@ -77,7 +75,7 @@ class MainPage(CTkFrame):
 
         self.emoji_picker = None
 
-        self.emojis = ["😊", "😂", "😍", "😎", "🤔", "😴", "🥳", "🎉", "❤️", "👍"] 
+        self.emojis = ["😊", "😂", "😍", "😎", "🤔", "😴", "🥳", "🎉", "❤️", "👍"]""" 
 
         # image = Image.open("app\image\cloche notif.png")  
         # image = image.resize((50, 50))
@@ -87,6 +85,7 @@ class MainPage(CTkFrame):
         # label_notifications.pack(side=ctk.TOP,ipadx=30)
         # window = tk.Tk()
         # window.title("Instant Messaging")
+
 
         
     def on_button_click(self):
@@ -138,7 +137,7 @@ class MainPage(CTkFrame):
         self.result_label.configure(text=texte)
 
 
-    # methods for recording audio
+    """# methods for recording audio
     def start_recording(self):
         self.recording = True
         self.record_button.configure(text="Stop recording")
@@ -221,7 +220,7 @@ class MainPage(CTkFrame):
     def close_emoji_picker(self):
         if self.emoji_picker:
             self.emoji_picker.destroy()
-            self.emoji_picker = None
+            self.emoji_picker = None"""
 
 
     # # methods for notifications
