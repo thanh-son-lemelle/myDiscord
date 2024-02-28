@@ -112,7 +112,7 @@ class Model:
         return self.user.userName(id)
     
     def returnAllName(self):
-        return self.user.userAllName()
+        return self.user.get_userName()
     
     def returnAllMail(self):
         return self.user.userAllmail()

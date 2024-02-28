@@ -75,3 +75,6 @@ class View(ctk.CTk):
 
     def get_remember_me_state(self):
         return self.controller.get_remember_me_state()
+    
+    def get_username(self):
+        return self.controller.getUserName()

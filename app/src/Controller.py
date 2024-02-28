@@ -94,6 +94,9 @@ class Controller:
     def getRememberMe(self):
         return self.view.login_screen.value_remember_me.get()
     
+    def getUserName(self):
+        return self.model.returnAllName()
+    
 
     #===============================================================================
     def get_remember_me_state(self):

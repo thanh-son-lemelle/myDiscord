@@ -31,8 +31,12 @@ class MainPage(CTkFrame):
         frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=700)
         frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
 
+        frame3 = CTkScrollableFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2,orientation="vertical", scrollbar_button_color="#383838")
+        frame3.pack(expand=False, side=ctk.RIGHT,fill=ctk.Y)
+
         frame2 = CTkScrollableFrame(master=self, fg_color="#383838", border_color="#FFFFFF", border_width=2,orientation="vertical", scrollbar_button_color="#383838")
         frame2.pack(expand=True, fill="both")
+
 
         self.entry = CTkEntry(self, text_color="#000000", fg_color="#FFFFFF", width=800)
         self.entry.pack(side=ctk.TOP, pady=10)  
@@ -40,10 +44,15 @@ class MainPage(CTkFrame):
         self.result_label = CTkLabel(master=frame2, text="",justify="left",font=("Arial", 16))
         self.result_label.pack(anchor="w", expand=True,pady=10, padx=30)
 
+
+        self.result_label_user_online = CTkLabel(master=frame3, text="",justify="left",font=("Arial", 16))
+        self.result_label_user_online.pack(anchor="w", expand=True,pady=10, padx=30)
+        self.list_user = self.master.get_username()
         def threading1():
              while self.running == True:
 
                 self.test()
+                self.list_user = self.master.get_username()
                 time.sleep(1)
 
         self.thread = threading.Thread(target=threading1)
@@ -55,15 +64,24 @@ class MainPage(CTkFrame):
         chat_textuel = CTkButton(master=frame, text="Main chat", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
         chat_textuel.pack(padx=30, pady=20)
 
+        chat_textuel2 = CTkButton(master=frame, text="Another chat", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+        chat_textuel2.pack(padx=30, pady=20)
+
+
         voice_button = CTkButton(master=frame, text="Voice channel", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
         voice_button.pack(padx=30, pady=20)
+
+        for user in self.list_user:
+
+            self.user_button = CTkButton(master=frame3, text=user, text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+            self.user_button.pack(padx=30, pady=20)
 
         quit_button = CTkButton(master=frame, text="Disconnect",command= self.disconnect ,text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
         quit_button.pack(padx=30, pady=20,anchor = "s")
 
         button = CTkButton(self, text="Send", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         button.pack(side=ctk.TOP,ipadx=10)
-        
+
         """emoji_button = CTkButton(self, text="Choose an Emoji", command=self.pick_emoji, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         emoji_button.pack(side=ctk.TOP,ipadx=10)
 
@@ -136,6 +154,13 @@ class MainPage(CTkFrame):
         # Set the result as the text of a label
         self.result_label.configure(text=texte)
 
+
+    
+            # Concatenate the elements of the tuple with spaces between them
+            
+
+        # Set the result as the text of a label
+        
 
     """# methods for recording audio
     def start_recording(self):
