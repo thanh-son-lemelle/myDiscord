@@ -96,11 +96,27 @@ class Controller:
     
 
     #===============================================================================
+    #         # methodes from service
     def get_remember_me_state(self):
         return self.service.load_checkbox_state()
     
     def get_auth(self):
         return self.service.auth
+    
+    #===============================================================================
+    #         # methodes for the registration
+
+    def get_register_variables(self):
+        name=self.view.register_page.value_name.get()
+        firstname=self.view.register_page.value_firstname.get()
+        mail=self.view.register_page.value_mail.get()
+        mdp=self.view.register_page.value_password.get()
+        return name, firstname, mail, mdp
+    
+    def register_new_user(self):
+        name, firstname, mail, mdp = self.get_register_variables()
+        self.model.create_user(name, firstname, mail, mdp)
+        self.view.displayloginScreen_from_register()
 
         
 if __name__ == "__main__":
