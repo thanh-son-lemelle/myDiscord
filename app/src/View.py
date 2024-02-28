@@ -78,3 +78,9 @@ class View(ctk.CTk):
     
     def get_username(self):
         return self.controller.getUserName()
+    
+    def get_save_audio(self,filename):
+        self.controller.get_audio(filename)
+
+    def get_audio_message(self):
+        return self.controller.read_message_type2()

@@ -81,6 +81,9 @@ class Controller:
     def read_message(self):
         return self.model.read_message_user()
     
+    def read_message_type2(self):
+        return self.model.read_message_type2_from_message()
+    
     #===============================================================================
     #         # methodes getters from the frontend to be used in the model
     #===============================================================================
@@ -104,6 +107,10 @@ class Controller:
     
     def get_auth(self):
         return self.service.auth
+    
+    def get_audio(self,filename):
+        self.model.creatingMessage(filename, self.userID, 2, 2)
+    
 
         
 if __name__ == "__main__":

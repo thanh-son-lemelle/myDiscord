@@ -38,6 +38,11 @@ class Message():
         query = 'SELECT userID FROM message'
         return self.db.executeQuery(query)
     
+
+    def read_audio(self):
+        query = 'SELECT content FROM message WHERE type = 2'
+        return self.db.executeQuery(query)
+    
     
     
 

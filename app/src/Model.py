@@ -62,6 +62,10 @@ class Model:
 
     def deleteMessage(self, messageID):
         self.message.delete(messageID)
+
+
+    def read_message_type2_from_message(self):
+        return self.message.read_audio()
 #===============================================================================
 #===============================================================================
         # reaction
