@@ -46,6 +46,10 @@ class View(ctk.CTk):
         self.register_page = Register(self)
         self.register_page.pack(expand=True, fill='both')
 
+    def displayloginScreen_from_register(self):
+        self.register_page.pack_forget()
+        self.displayLoginScreen()
+
     def on_closing(self):
         print("Closing")
         if self.controller.get_auth() == True:
@@ -57,13 +61,6 @@ class View(ctk.CTk):
 #===============================================================================
         # variables from Controller
 #===============================================================================
-
-    def get_login_variables(self, username, password):
-        self.controller.get_login_variables(username, password)
-
-    def get_register_variables(self, name, firstname, mail, mdp):
-        self.controller.get_register_variables(name, firstname, mail, mdp)
-
     def get_sending_message(self, message):
         self.controller.get_sending_message(message)
 
@@ -72,6 +69,9 @@ class View(ctk.CTk):
     
     def login(self):
         self.controller.login()
+    
+    def register_new_user(self):
+        self.controller.register_new_user()
 
     def get_remember_me_state(self):
         return self.controller.get_remember_me_state()
