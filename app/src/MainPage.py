@@ -27,8 +27,11 @@ class MainPage(CTkFrame):
         self.listbox.bind("<Double-Button-1>", self.play_selected)"""
     
     def creat_widgets(self):
+
+        server_frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=80)
+        server_frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
         
-        frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=700)
+        frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=600)
         frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
 
         frame2 = CTkScrollableFrame(master=self, fg_color="#383838", border_color="#FFFFFF", border_width=2,orientation="vertical", scrollbar_button_color="#383838")
