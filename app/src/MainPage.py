@@ -45,10 +45,14 @@ class MainPage(CTkFrame):
         self.result_label = CTkLabel(master=frame2, text="",justify="left",font=("Arial", 16))
         self.result_label.pack(anchor="w", expand=True,pady=10, padx=30)
 
+        title_online_user = CTkLabel(master=frame3, text="Online member",justify="center",font=("Arial", 16))
+        title_online_user.pack(anchor="n",pady=5, padx=30)
 
         self.result_label_user_online = CTkLabel(master=frame3, text="",justify="left",font=("Arial", 16))
         self.result_label_user_online.pack(anchor="w", expand=True,pady=10, padx=30)
         self.list_user = self.master.get_username()
+
+
         def threading1():
              while self.running == True:
 
@@ -154,12 +158,13 @@ class MainPage(CTkFrame):
         for tup in self.master.read_message():
             # Convert the elements of the tuple to strings
             str_tup = [str(item) if not isinstance(item, bytes) else item.decode('utf-8') for item in tup]
-       
+            str_tup[0] += " :"
             # Concatenate the elements of the tuple with spaces between them
-            texte += " \n\n ".join(str_tup) + "\n\n"
+            texte += " \n".join(str_tup) + "\n\n"
 
         # Set the result as the text of a label
         self.result_label.configure(text=texte)
+        
 
 
     # methods for emojis
@@ -240,7 +245,6 @@ class MainPage(CTkFrame):
 
     def update_listbox(self):
         for recording in self.master.get_audio_message():
-            
             self.listbox.insert(tk.END, recording)
             
 
