@@ -212,7 +212,10 @@ class Model:
         
     # when the user is created he need to have a private server
         
-    def create_private_server(self, name, description, type, owner, server_image):
+    def create_private_server(self, name, description, type, owner):
+        with open("image\\icon_server_default.png", "rb") as image_file:
+            server_image = image_file.read()
+
         self.server.create(name, description, type, owner, server_image)
         
     def create_user(self, name, firstname, mail, mdp):
@@ -220,7 +223,7 @@ class Model:
         if result[0] == True:
             self.edit_user(name, firstname, mail, mdp)
             userID=self.get_user_information_by_username(name)[0]
-            self.create_private_server("Private Messages", "dafault server", 1, userID, "Null")
+            self.create_private_server("Private Messages", "dafault server", 1, userID)
         print("User created")
         return True
         
