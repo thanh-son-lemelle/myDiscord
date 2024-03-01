@@ -61,17 +61,30 @@ class View(ctk.CTk):
 #===============================================================================
         # variables from Controller
 #===============================================================================
+    #messages process
     def get_sending_message(self, message):
         self.controller.get_sending_message(message)
 
     def read_message(self):
         return self.controller.read_message()
-    
+
+    #login process    
     def login(self):
         self.controller.login()
     
+    def get_remember_me_state(self):
+        return self.controller.get_remember_me_state()
+    
+    def get_user_information(self):
+        return self.controller.get_user_information()
+
+    #register process
     def register_new_user(self):
         self.controller.register_new_user()
 
-    def get_remember_me_state(self):
-        return self.controller.get_remember_me_state()
+    #buttons server process
+    def get_user_server_by_userID(self, userID, server_name=None):
+        if server_name is None:
+            return self.controller.get_user_server_by_userID(userID)
+        else:
+            return self.controller.get_user_server_by_userID(userID, server_name)
