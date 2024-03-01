@@ -260,5 +260,6 @@ class ServerPage(CTkFrame):
 
     def disconnect(self):
         self.master.main_page.pack_forget()
+        self.master.server_page.pack_forget()
         self.master.displayLoginScreen()
         
