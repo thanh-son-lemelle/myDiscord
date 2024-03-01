@@ -62,6 +62,10 @@ class Model:
 
     def deleteMessage(self, messageID):
         self.message.delete(messageID)
+
+
+    def read_message_type2_from_message(self):
+        return self.message.read_audio()
 #===============================================================================
 #===============================================================================
         # reaction
@@ -112,7 +116,7 @@ class Model:
         return self.user.userName(id)
     
     def returnAllName(self):
-        return self.user.userAllName()
+        return self.user.get_userName()
     
     def returnAllMail(self):
         return self.user.userAllmail()

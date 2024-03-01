@@ -88,3 +88,12 @@ class View(ctk.CTk):
             return self.controller.get_user_server_by_userID(userID)
         else:
             return self.controller.get_user_server_by_userID(userID, server_name)
+    
+    def get_username(self):
+        return self.controller.getUserName()
+    
+    def get_save_audio(self,filename):
+        self.controller.get_audio(filename)
+
+    def get_audio_message(self):
+        return self.controller.read_message_type2()

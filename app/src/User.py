@@ -64,3 +64,8 @@ class User:
         query = "SELECT * FROM `user` WHERE `auth_token` = %s"
         params = (token,)
         return self.db.executeQuery(query, params)
+    
+
+    def get_userName (self):
+        query = 'SELECT name FROM user'
+        return self.db.executeQuery(query)
