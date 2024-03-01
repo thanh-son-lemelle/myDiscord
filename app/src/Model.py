@@ -217,17 +217,31 @@ class Model:
             server_image = image_file.read()
 
         self.server.create(name, description, type, owner, server_image)
+    
+    def create_membership(self, userID, serverID, role):
+        self.server_member.create(userID, serverID, role)
         
     def create_user(self, name, firstname, mail, mdp):
         result = self.check_input_register(name, firstname, mdp, mail)
         if result[0] == True:
             self.edit_user(name, firstname, mail, mdp)
             userID=self.get_user_information_by_username(name)[0]
-            self.create_private_server("Private Messages", "dafault server", 1, userID)
+            self.create_private_server("Private Messages", "default server", 1, userID)
+            print(self.join.get_user_server_by_userID(userID, "Private Messages"))
+            serverID = self.join.get_user_server_by_userID(userID, "Private Messages")[0][3]
+            self.create_membership(userID, serverID, "admin")
         print("User created")
         return True
         
 #===============================================================================
-        # methodes from the controller
+        # methodes for the server_button
 #===============================================================================
+    def get_user_server(self, userID):
+        return self.join.get_user_server(userID) #no def
+    
+    def get_user_server_by_userID(self, userID, server_name =None):
+        if server_name:
+            return self.join.get_user_server_by_userID(userID, server_name)
+        else:
+            return self.join.get_user_server_by_userID(userID)
     
