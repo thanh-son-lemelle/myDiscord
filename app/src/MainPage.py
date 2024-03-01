@@ -13,6 +13,7 @@ from tkinter import ttk
 import time
 import emoji 
 import winsound
+import pygame
 
 class MainPage(CTkFrame):
     def __init__(self, master):
@@ -31,20 +32,21 @@ class MainPage(CTkFrame):
         
         frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=700)
         frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
+   
+        frame3 = CTkScrollableFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, orientation="vertical", scrollbar_button_color="#383838")
+        frame3.pack(expand=False, side=ctk.RIGHT, fill=ctk.Y)
 
-        frame3 = CTkScrollableFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2,orientation="vertical", scrollbar_button_color="#383838")
-        frame3.pack(expand=False, side=ctk.RIGHT,fill=ctk.Y)
-
-        frame2 = CTkScrollableFrame(master=self, fg_color="#383838", border_color="#FFFFFF", border_width=2,orientation="vertical", scrollbar_button_color="#383838")
+        frame2 = CTkScrollableFrame(master=self, fg_color="#383838", border_color="#FFFFFF", border_width=2, orientation="vertical", scrollbar_button_color="#383838")
         frame2.pack(expand=True, fill="both")
-
-
+       
+        self.reverse_scrollbar(frame3)
+        self.reverse_scrollbar(frame2)
+        
         self.entry = CTkEntry(self, text_color="#000000", fg_color="#FFFFFF", width=800)
         self.entry.pack(side=ctk.TOP, pady=10)  
 
         self.result_label = CTkLabel(master=frame2, text="",justify="left",font=("Arial", 16))
         self.result_label.pack(anchor="w", expand=True,pady=10, padx=30)
-
 
         self.result_label_user_online = CTkLabel(master=frame3, text="",justify="left",font=("Arial", 16))
         self.result_label_user_online.pack(anchor="w", expand=True,pady=10, padx=30)
@@ -68,7 +70,6 @@ class MainPage(CTkFrame):
         chat_textuel2 = CTkButton(master=frame, text="Another chat", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
         chat_textuel2.pack(padx=30, pady=20)
 
-
         voice_button = CTkButton(master=frame, text="Voice channel", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
         voice_button.pack(padx=30, pady=20)
 
@@ -89,28 +90,30 @@ class MainPage(CTkFrame):
         self.record_button = CTkButton(self, text="Click to record", command=self.toggle_recording, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         self.record_button.pack(side=ctk.TOP,ipadx=10)
 
-        self.play_button = CTkButton(self, text="Play recording", command=self.play_selected, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
-        self.play_button.pack(side=ctk.TOP,ipadx=10)
-
         self.emoji_picker = None
 
-        self.emojis = ["😊", "😂", "😍", "😎", "🤔", "😴", "🥳", "🎉", "❤️", "👍"]
+        self.emojis = ["😊", "😂", "😍", "😎", "🤔", "😴", "🥳", "🎉", "👍", "❤️"]
+
+        emoji_frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2)
+        emoji_frame.pack(side=tk.BOTTOM, pady=10)
+
+        for emoji in self.emojis:
+            emoji_button = CTkButton(master=emoji_frame, text=emoji, command=lambda e=emoji: self.select_emoji(e), text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+            emoji_button.configure(width=10, height=10)
+            emoji_button.pack(side=tk.LEFT, padx=10, pady=10)
 
         self.listbox = tk.Listbox(self,width=50)
         self.listbox.bind("<Double-Button-1>",self.play_selected)
         self.listbox.pack()
-        
-    
 
-        # image = Image.open("app\image\cloche notif.png")  
-        # image = image.resize((50, 50))
-        # photo = ImageTk.PhotoImage(image)
 
-        # label_notifications = tk.Label(window, image=photo, text="Notifications", compound=tk.LEFT)
-        # label_notifications.pack(side=ctk.TOP,ipadx=30)
-        # window = tk.Tk()
-        # window.title("Instant Messaging")
-
+    def reverse_scrollbar(self, frame):
+        for child in frame.winfo_children():
+            if isinstance(child, tk.Scrollbar) and child.cget('orient') == 'vertical':
+                child.config(to=1.0, from_=0.0)
+                child.config(command=lambda *args: frame.yview(*args))
+                frame.config(yscrollcommand=child.set)
+                break
 
         
     def on_button_click(self):
@@ -169,26 +172,23 @@ class MainPage(CTkFrame):
             self.messages_list.insert(tk.END, f"You: {message}")
             self.entry.delete(0, tk.END)
 
+
     def pick_emoji(self):
         if not self.emoji_picker:
             self.emoji_picker = tk.Toplevel(self)
-            emoji_listbox = tk.Listbox(self.emoji_picker, width=20, height=10)
             
             for emoji in self.emojis:
-                emoji_listbox.insert(tk.END, emoji)
-            emoji_listbox.pack(padx=20, pady=20)
-
-            select_button = ttk.Button(self.emoji_picker, text="Select", command=self.select_emoji)
-            select_button.pack(pady=5)
+                emoji_button = CTkButton(master=self.emoji_picker, text=emoji, command=lambda e=emoji: self.select_emoji(e), text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+                # emoji_button.configure(width=30, height=30)
+                # emoji_button.pack(padx=30, pady=30)
 
             self.emoji_picker.protocol("WM_DELETE_WINDOW", self.close_emoji_picker)
 
-    def select_emoji(self):
-        selected_indices = self.emoji_picker.winfo_children()[0].curselection()
-        if selected_indices:
-            selected_emoji = self.emojis[selected_indices[0]]
-            self.entry.insert(tk.END, selected_emoji)
-            self.close_emoji_picker()
+
+    def select_emoji(self, emoji):
+        self.entry.insert(tk.END, emoji)
+        self.close_emoji_picker()
+
 
     def close_emoji_picker(self):
         if self.emoji_picker:
@@ -203,15 +203,18 @@ class MainPage(CTkFrame):
         self.recording_thread = threading.Thread(target=self.record_audio)
         self.recording_thread.start()
 
+
     def stop_recording(self):
         self.recording = False
         self.record_button.configure(text="Recording")
+
 
     def toggle_recording(self):
         if self.recording:
             self.stop_recording()
         else:
             self.start_recording()
+
 
     def record_audio(self):
         duration = 10  
@@ -225,8 +228,9 @@ class MainPage(CTkFrame):
         except Exception as e:
             print("Une erreur est survenue lors de l'enregistrement :", e)
         finally:
-            self.master.after(10, self.stop_recording)  
+            self.stop_recording()
             
+
     def save_audio(self, filename):
         if not os.path.exists("audio_recordings"):
             os.makedirs("audio_recordings")
@@ -242,40 +246,15 @@ class MainPage(CTkFrame):
         for recording in self.master.get_audio_message():
             
             self.listbox.insert(tk.END, recording)
-            
+
 
     def play_selected(self,event):
         print("Playing selected recording")
         selected_index = self.listbox.curselection()[0]
         filename = self.recordings[selected_index]
-        winsound.PlaySound(f"audio_recordings/{filename}", winsound.SND_FILENAME)
+        filename_str = str(filename[0]) if not isinstance(filename[0], bytes) else filename[0].decode("utf-8")
+        winsound.PlaySound(f"audio_recordings/{filename_str}", winsound.SND_FILENAME)
 
-
-
-    # # methods for notifications
-    # def send_message(self, sender, content):
-    #     self.messages.append((sender, content))
-
-    # def display_notifications(self):
-    #     if self.messages:
-    #         for sender, content in self.messages:
-    #             print(f"Notification: New message from {sender}: {content}")
-    #     else:
-    #         print("No new notifications")
-
-    # def get_notification_count(self):
-    #     return len(self.messages)
-
-    # def update_notifications(event):
-    #     count = instant_messaging.get_notification_count()
-    #     label_notifications.configure(text=f"Notifications ({count})")
-    #     label_notifications.bind("<Button-1>", update_notifications)
-
-    #     instant_messaging = MainPage()
-    #     instant_messaging.send_message()
-    #     instant_messaging.display_notifications()
-    #     instant_messaging.get_notification_count()
-        
 
     def disconnect(self):
         self.master.main_page.pack_forget()
