@@ -11,7 +11,10 @@ from datetime import datetime
 from PIL import Image, ImageTk
 from tkinter import ttk
 import time
-import emoji 
+import emoji
+
+from .ServerButton import ServerButton
+
 
 class MainPage(CTkFrame):
     def __init__(self, master):
@@ -88,6 +91,12 @@ class MainPage(CTkFrame):
         # label_notifications.pack(side=ctk.TOP,ipadx=30)
         # window = tk.Tk()
         # window.title("Instant Messaging")
+        print("test id",self.master.get_user_information()[0])
+        list_servers = self.master.get_user_server_by_userID(self.master.get_user_information()[0])
+        print("test list",list_servers)
+        for server in list_servers:
+            self.server_button = ServerButton(server_frame, server_name=server[4], server_icon=None, server_description=server[5], is_last=False)
+            self.server_button.pack()
 
 
         
@@ -252,6 +261,8 @@ class MainPage(CTkFrame):
         
 
     def disconnect(self):
+        self.running = False
+        self.thread.join()
         self.master.main_page.pack_forget()
         self.master.displayLoginScreen()
         
