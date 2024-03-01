@@ -1,8 +1,11 @@
 import customtkinter as ctk
+from tkinter import Frame
 
 from .LoginScreen import LoginScreen
 from .MainPage import MainPage
 from .Register import Register
+from .ServerPage import ServerPage
+
 """from .ErrorMessage import ErrorMessage"""
 
 class View(ctk.CTk):
@@ -39,42 +42,64 @@ class View(ctk.CTk):
     def displayMainPage(self):
         self.login_screen.pack_forget()
         self.main_page = MainPage(self)
-        self.main_page.pack(expand=True, fill='both')
+        self.display_ServerPage()
+        # Pack the main page on the left side of the container
+        self.main_page.pack(side='left', expand=True, fill='both')
+
+        # Pack the server page on the right side of the container
+        self.server_page.pack(side='right', expand=True, fill='both')
+        
 
     def displayRegisterPage(self):
         self.login_screen.pack_forget()
         self.register_page = Register(self)
         self.register_page.pack(expand=True, fill='both')
 
+    def displayloginScreen_from_register(self):
+        self.register_page.pack_forget()
+        self.displayLoginScreen()
+    
+    def display_ServerPage(self):
+        self.server_page = ServerPage(self)
+
     def on_closing(self):
         print("Closing")
         if self.controller.get_auth() == True:
-            self.main_page.running = False
-            self.main_page.thread.join()
+            self.server_page.running = False
+            self.server_page.thread.join()
             print("Thread closed")
         self.destroy()
         print("Window closed")
 #===============================================================================
         # variables from Controller
 #===============================================================================
-
-    def get_login_variables(self, username, password):
-        self.controller.get_login_variables(username, password)
-
-    def get_register_variables(self, name, firstname, mail, mdp):
-        self.controller.get_register_variables(name, firstname, mail, mdp)
-
+    #messages process
     def get_sending_message(self, message):
         self.controller.get_sending_message(message)
 
     def read_message(self):
         return self.controller.read_message()
-    
+
+    #login process    
     def login(self):
         self.controller.login()
-
+    
     def get_remember_me_state(self):
         return self.controller.get_remember_me_state()
+    
+    def get_user_information(self):
+        return self.controller.get_user_information()
+
+    #register process
+    def register_new_user(self):
+        self.controller.register_new_user()
+
+    #buttons server process
+    def get_user_server_by_userID(self, userID, server_name=None):
+        if server_name is None:
+            return self.controller.get_user_server_by_userID(userID)
+        else:
+            return self.controller.get_user_server_by_userID(userID, server_name)
     
     def get_username(self):
         return self.controller.getUserName()

@@ -6,8 +6,13 @@ class Register(ctk.CTkFrame):
 
     def __init__(self, master):
         super().__init__(master)
-        self.create_widgets()
+        
         self.click_validation = False
+        self.value_name = ctk.StringVar()
+        self.value_firstname = ctk.StringVar()
+        self.value_password = ctk.StringVar()
+        self.value_mail = ctk.StringVar()
+        self.create_widgets()
 
     def create_widgets(self):
         frame = CTkFrame(master=self, width=1482, height=834, corner_radius=45)
@@ -18,22 +23,22 @@ class Register(ctk.CTkFrame):
 
         label1 = CTkLabel(master=frame, text="Name:", font=("Arial", 12))
         label1.pack(pady=12, padx=10)
-        self.entry1 = CTkEntry(master=frame)
+        self.entry1 = CTkEntry(master=frame , textvariable=self.value_name)
         self.entry1.pack(pady=12, padx=10)
 
         label2 = CTkLabel(master=frame, text="Firstname:", font=("Arial", 12))
         label2.pack(pady=12, padx=10)
-        self.entry2 = CTkEntry(master=frame)
+        self.entry2 = CTkEntry(master=frame, textvariable=self.value_firstname)
         self.entry2.pack(pady=12, padx=10)
 
         label3 = CTkLabel(master=frame, text="Password:", font=("Arial", 12))
         label3.pack(pady=12, padx=10)
-        self.entry3 = CTkEntry(master=frame)
+        self.entry3 = CTkEntry(master=frame, textvariable=self.value_password, show="*")
         self.entry3.pack(pady=12, padx=10)
 
         label4 = CTkLabel(master=frame, text="Email:", font=("Arial", 12))
         label4.pack(pady=12, padx=10)
-        self.entry4 = CTkEntry(master=frame)
+        self.entry4 = CTkEntry(master=frame, textvariable=self.value_mail)
         self.entry4.pack(pady=12, padx=10)
 
         validation_button = CTkButton(master=frame, text="Click to valid", command=self.on_click_validation)
@@ -46,11 +51,7 @@ class Register(ctk.CTkFrame):
     # to this point new methods
 
     def on_click_validation(self):
-        name = self.entry1.get()
-        firstname = self.entry2.get()
-        mdp = self.entry3.get()
-        mail = self.entry4.get()
-        return self.master.get_register_variables(name, firstname, mdp, mail)   
+        self.master.register_new_user()
     
 
 

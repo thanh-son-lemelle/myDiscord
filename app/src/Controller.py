@@ -68,6 +68,8 @@ class Controller:
         self.firstname = value[2]
         self.mail = value[4]
     # during the registration, the controller will call the model to create a new user
+    def get_user_information(self):
+        return self.userID, self.username, self.firstname, self.mail
     
     def get_sending_message(self, message):
         self.model.creatingMessage(message, self.userID, 1, 2)
@@ -102,6 +104,7 @@ class Controller:
     
 
     #===============================================================================
+    #         # methodes from service
     def get_remember_me_state(self):
         return self.service.load_checkbox_state()
     
@@ -111,8 +114,35 @@ class Controller:
     def get_audio(self,filename):
         self.model.creatingMessage(filename, self.userID, 2, 2)
     
+    
+    #===============================================================================
+    #         # methodes for the registration
 
-        
+    def get_register_variables(self):
+        name=self.view.register_page.value_name.get()
+        firstname=self.view.register_page.value_firstname.get()
+        mail=self.view.register_page.value_mail.get()
+        mdp=self.view.register_page.value_password.get()
+        return name, firstname, mail, mdp
+    
+    def register_new_user(self):
+        name, firstname, mail, mdp = self.get_register_variables()
+        self.model.create_user(name, firstname, mail, mdp)
+        self.view.displayloginScreen_from_register()
+
+#===============================================================================
+#         # methodes for buttons server
+    def set_userID_for_button(self):
+        return self.userID
+    
+    def get_user_server(self, userID, server_name=None): #no def
+        return self.model.get_user_server(userID, server_name= None)
+    
+    def get_user_server_by_userID(self, userID, server_name= None):
+        if server_name is None:
+            return self.model.get_user_server_by_userID(userID)
+        else:
+            return self.model.get_user_server_by_userID(userID, server_name)      
 if __name__ == "__main__":
 
     application = Controller()

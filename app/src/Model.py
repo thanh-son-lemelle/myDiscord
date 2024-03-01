@@ -85,14 +85,14 @@ class Model:
 #===============================================================================
         # server
 #===============================================================================
-    def createServer(self, server_name, description, owner, server_image):
-        self.server.create(server_name, description, owner, server_image)
+    def createServer(self, server_name, description, type, owner, server_image):
+        self.server.create(server_name, description, type, owner, server_image)
     
     def readServer(self):
         return self.server.read()
     
-    def updateServer(self, serverID, server_name, description, owner, server_image):
-        self.server.update(serverID, server_name, description, owner, server_image)
+    def updateServer(self, serverID, server_name, description, type, owner, server_image):
+        self.server.update(serverID, server_name, description, type, owner, server_image)
 
     def deleteServer(self, serverID):
         self.server.delete(serverID)
@@ -172,9 +172,9 @@ class Model:
         return self.user.check_auth_token(token)
 
     #===========================================================================
+    # methodes for the registration
     
-    
-    def creatingUser(self, name, firstname, email, password):
+    def edit_user(self, name, firstname, email, password):
         self.user.create(name, firstname, email, password)
 
     def creatingMessage(self, content, userID, type, channelID):
@@ -192,11 +192,6 @@ class Model:
         else:
             print('Mail does not exist')
             return True
-        
-    def save_checkbox_state(self, state):
-        print(state)
-        """with open("remember_me_state.txt", "w") as f:
-            f.write(state)"""
 
     def check_input_register(self, name, firstname, mdp, mail):
         if not all([name, firstname, mdp, mail]):
@@ -219,7 +214,38 @@ class Model:
 
             return False, "Mail existe déjà"
         
+    # when the user is created he need to have a private server
+        
+    def create_private_server(self, name, description, type, owner):
+        with open("image\\icon_server_default.png", "rb") as image_file:
+            server_image = image_file.read()
+
+        self.server.create(name, description, type, owner, server_image)
+    
+    def create_membership(self, userID, serverID, role):
+        self.server_member.create(userID, serverID, role)
+        
+    def create_user(self, name, firstname, mail, mdp):
+        result = self.check_input_register(name, firstname, mdp, mail)
+        if result[0] == True:
+            self.edit_user(name, firstname, mail, mdp)
+            userID=self.get_user_information_by_username(name)[0]
+            self.create_private_server("Private Messages", "default server", 1, userID)
+            print(self.join.get_user_server_by_userID(userID, "Private Messages"))
+            serverID = self.join.get_user_server_by_userID(userID, "Private Messages")[0][3]
+            self.create_membership(userID, serverID, "admin")
+        print("User created")
+        return True
+        
 #===============================================================================
-        # methodes from the controller
+        # methodes for the server_button
 #===============================================================================
+    def get_user_server(self, userID):
+        return self.join.get_user_server(userID) #no def
+    
+    def get_user_server_by_userID(self, userID, server_name =None):
+        if server_name:
+            return self.join.get_user_server_by_userID(userID, server_name)
+        else:
+            return self.join.get_user_server_by_userID(userID)
     
