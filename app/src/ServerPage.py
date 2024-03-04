@@ -26,10 +26,6 @@ class ServerPage(CTkFrame):
 
     def create_widgets(self):
         
-
-        
-
-        
         frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=700)
         frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
    
@@ -38,10 +34,7 @@ class ServerPage(CTkFrame):
 
         frame2 = CTkScrollableFrame(master=self, fg_color="#383838", border_color="#FFFFFF", border_width=2, orientation="vertical", scrollbar_button_color="#383838")
         frame2.pack(expand=True, fill="both")
-       
-        self.reverse_scrollbar(frame3)
-        self.reverse_scrollbar(frame2)
-        
+
         self.entry = CTkEntry(self, text_color="#000000", fg_color="#FFFFFF", width=800)
         self.entry.pack(side=ctk.TOP, pady=10)  
 
@@ -109,15 +102,13 @@ class ServerPage(CTkFrame):
         self.listbox.bind("<Double-Button-1>",self.play_selected)
         self.listbox.pack()
 
-    def reverse_scrollbar(self, frame):
-        for child in frame.winfo_children():
-            if isinstance(child, tk.Scrollbar) and child.cget('orient') == 'vertical':
-                child.config(to=1.0, from_=0.0)
-                child.config(command=lambda *args: frame.yview(*args))
-                frame.config(yscrollcommand=child.set)
-                break
+    # def add_message(self, message):
+    #     message_label = tk.Label(self.frame2, text=message)
+    #     message_label.pack(anchor="w")
+    #     self.frame2.update_idletasks()  # Assurez-vous que les tâches sont à jour
+    #     self.frame2.canvas.yview_scroll(1, "units")  # Déplacer la vue vers le bas d'une unité
 
-        
+
     def on_button_click(self):
         user_input = self.entry.get()
         print(user_input)
@@ -156,14 +147,12 @@ class ServerPage(CTkFrame):
 
     def test(self):
         texte = ""
-        for tup in self.master.read_message():
-            # Convert the elements of the tuple to strings
+        messages = self.master.read_message() 
+
+        for tup in reversed(messages):
             str_tup = [str(item) if not isinstance(item, bytes) else item.decode('utf-8') for item in tup]
             str_tup[0] += " : "
-            # Concatenate the elements of the tuple with spaces between them
             texte += " \n".join(str_tup) + "\n\n"
-
-        # Set the result as the text of a label
         self.result_label.configure(text=texte)
 
 
