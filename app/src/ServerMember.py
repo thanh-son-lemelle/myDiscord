@@ -4,9 +4,9 @@ class ServerMember:
     def __init__(self) -> None:
         self.db = Db()
         
-    def create(self, userID, serverID, role):
-        query = "INSERT INTO server_member (userID, serverID, role) VALUES (%s, %s, %s)"
-        params = (userID, serverID, role)
+    def create(self, userID, serverID, role, channelID):
+        query = "INSERT INTO server_member (userID, serverID, role, channelID) VALUES (%s, %s, %s, %s)"
+        params = (userID, serverID, role, channelID)
         self.db.executeQuery(query, params)
 
     def read(self):
