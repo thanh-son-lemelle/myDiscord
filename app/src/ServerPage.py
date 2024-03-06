@@ -42,13 +42,13 @@ class ServerPage(CTkFrame):
         print(f"list_channelID into create_widgets {self.list_channelID}")
         print(f"channel_selected into create_widgets {self.channel_selected}")
 
-        frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=700)
+        frame = CTkFrame(master=self, fg_color="#2B2D31", border_width=0, width=700)
         frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
    
-        frame3 = CTkScrollableFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, orientation="vertical", scrollbar_button_color="#383838", width=80)
+        frame3 = CTkScrollableFrame(master=self, fg_color="#1E1F22", border_color="#FFFFFF", border_width=0, orientation="vertical", scrollbar_button_color="#383838", width=80)
         frame3.pack(expand=False, side=ctk.RIGHT, fill=ctk.Y)
 
-        frame2 = CTkScrollableFrame(master=self, fg_color="#383838", border_color="#FFFFFF", border_width=2, orientation="vertical", scrollbar_button_color="#383838")
+        frame2 = CTkScrollableFrame(master=self, fg_color="#383838", border_color="#FFFFFF", border_width=0, orientation="vertical", scrollbar_button_color="#383838")
         frame2.pack(expand=True, fill="both")
 
         self.entry = CTkEntry(self, text_color="#000000", fg_color="#FFFFFF", width=800)
@@ -60,8 +60,6 @@ class ServerPage(CTkFrame):
         title_online_user = CTkLabel(master=frame3, text="Users",justify="center",font=("Arial", 16))
         title_online_user.pack(anchor="n",pady=5, padx=0)
 
-        self.result_label_user_online = CTkLabel(master=frame3, text="",justify="left",font=("Arial", 16))
-        self.result_label_user_online.pack(anchor="w", expand=True,pady=10, padx=30)
         self.list_user = self.master.get_username()
         def threading1():
              while self.running == True:
@@ -73,22 +71,22 @@ class ServerPage(CTkFrame):
         self.thread = threading.Thread(target=threading1)
         self.thread.start()
 
-        label = CTkLabel(master=frame, text="Canaux", text_color="#000000")
+        label = CTkLabel(master=frame, text="Canaux",font=("Arial", 16))
         label.pack(side="top", pady=(10, 0))
         # à def par une boucle
         
         print(f"list_channelID into create_widgets {self.list_channelID}")
         if self.list_channelID is not None:
             for channel in self.list_channelID:
-                channel_button = CTkButton(master=frame, text=channel, text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00", command=lambda channel=channel: self.channel_select(channel))
+                channel_button = CTkButton(master=frame, text=channel, text_color="#000000", fg_color="#FFFFFF", hover_color="#FFAB00", command=lambda channel=channel: self.channel_select(channel))
                 channel_button.pack(padx=30, pady=20)
 
         for user in self.list_user:
             if user[1]!=self.userID:
-                self.user_button = CTkButton(master=frame3, text=user[0], text_color="#000000", fg_color="transparent", hover_color="#FFDE00", bg_color="transparent", command=lambda user=user[0]: self.on_button_user_click(user))
+                self.user_button = CTkButton(master=frame3, text=user[0], fg_color="transparent", hover_color="#FFAB00", bg_color="transparent", command=lambda user=user[0]: self.on_button_user_click(user))
                 self.user_button.pack(padx=0, pady=0)
 
-        quit_button = CTkButton(master=frame, text="Disconnect",command= self.disconnect ,text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+        quit_button = CTkButton(master=frame, text="Disconnect",command= self.disconnect ,text_color="#000000", fg_color="#FFFFFF", hover_color="#FFAB00")
         quit_button.pack(padx=30, pady=20,anchor = "s", side=BOTTOM)
 
         button = CTkButton(self, text="Send", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
@@ -108,7 +106,7 @@ class ServerPage(CTkFrame):
         emoji_frame.pack(side=tk.BOTTOM, pady=10)
 
         for emoji in self.emojis:
-            emoji_button = CTkButton(master=emoji_frame, text=emoji, command=lambda e=emoji: self.select_emoji(e), text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+            emoji_button = CTkButton(master=emoji_frame, text=emoji, command=lambda e=emoji: self.select_emoji(e), text_color="#000000", fg_color="#FFFFFF", hover_color="#FFAB00")
             emoji_button.configure(width=10, height=10)
             emoji_button.pack(side=tk.LEFT, padx=10, pady=10)
 
@@ -182,7 +180,7 @@ class ServerPage(CTkFrame):
             self.emoji_picker = tk.Toplevel(self)
             
             for emoji in self.emojis:
-                emoji_button = CTkButton(master=self.emoji_picker, text=emoji, command=lambda e=emoji: self.select_emoji(e), text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
+                emoji_button = CTkButton(master=self.emoji_picker, text=emoji, command=lambda e=emoji: self.select_emoji(e), text_color="#000000", fg_color="#FFFFFF", hover_color="#FFAB00")
                 # emoji_button.configure(width=30, height=30)
                 # emoji_button.pack(padx=30, pady=30)
 

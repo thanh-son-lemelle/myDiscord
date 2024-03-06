@@ -22,14 +22,14 @@ class MainPage(CTkFrame):
         self.messages = []
         
     def create_widgets(self):
-        server_frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=80)
+        server_frame = CTkFrame(master=self, fg_color="#1E1F22", border_width=0, width=80)
         server_frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
         
         print("test id", self.master.get_user_information()[0])
         list_servers = self.master.get_user_server_by_userID(self.master.get_user_information()[0])
         print("test list", list_servers)
 
-        chat_textuel = CTkButton(master=server_frame, text="Main chat", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00", command=self.on_click_main_chat)
+        chat_textuel = CTkButton(master=server_frame, text="Main chat", fg_color="transparent", hover_color="#FFAB00", font=("Arial", 16), command=self.on_click_main_chat)
         chat_textuel.pack(padx=0, pady=20)
         
         for server in list_servers:

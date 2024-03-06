@@ -12,7 +12,7 @@ class ServerButton(CTkButton):
         self.create_widgets()
 
     def create_widgets(self):
-        self.configure(text=self.server_name, command=self.on_click, fg_color="#000000", bg_color="#01b366", hover_color="#FFDE00", width=20, height=2, font=("Arial", 16))
+        self.configure(text=self.server_name, command=self.on_click, fg_color="transparent", hover_color="#FFAB00", width=20, height=2, font=("Arial", 16))
 
     def on_click(self):
         print(f"Server {self.server_name, self.serverID} clicked")
