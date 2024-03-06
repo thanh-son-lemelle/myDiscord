@@ -133,6 +133,12 @@ class Model:
     def read_message_user(self):
         return self.join.get_message_and_user()
     
+    def read_message_user_from_channel(self,channelID):
+        return self.join.get_messages_for_user_in_channel(channelID)
+    
+    def get_channel_by_serverID(self, serverID):
+        return self.join.get_channel_by_serverID(serverID)
+    
 #===============================================================================
 
 #===============================================================================
@@ -145,7 +151,7 @@ class Model:
     
     def get_user_by_username(self, username):
         user_data = self.user.get_user_by_username(username)
-        print (user_data)
+        print ("test user data",user_data)
         if user_data:
             return user_data[1], user_data[3]
         else:
@@ -193,7 +199,9 @@ class Model:
             print('Mail does not exist')
             return True
 
-    def check_input_register(self, name, firstname, mdp, mail):
+    def check_input_register(self, name, firstname, mail, mdp):
+        print("test dans check_input_register")
+        print("name, firstname, mdp, mail", name, firstname, mail, mdp)
         if not all([name, firstname, mdp, mail]):
             print("Veuillez remplir tous les champs.")
             
@@ -248,4 +256,18 @@ class Model:
             return self.join.get_user_server_by_userID(userID, server_name)
         else:
             return self.join.get_user_server_by_userID(userID)
-    
+#===============================================================================
+        # methodes for the user buttons
+#===============================================================================
+        
+    def create_channel(self, channel_name, channel_type):
+        self.channel.create(channel_name, channel_type)
+
+    def create_membership(self, userID, serverID, role, channelID):
+        self.server_member.create(userID, serverID, role, channelID)
+
+    def get_channelID_by_channel_name(self, channel_name):
+        return self.channel.get_channelID_by_channel_name(channel_name)
+
+    def get_serverID_by_server_name_and_owner(self, server_name, owner):
+        return self.server.get_serverID_by_server_name_and_owner(server_name, owner)
