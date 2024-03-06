@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton, CTkCanvas
+from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton
 
 
 class Register(ctk.CTkFrame):

@@ -1,6 +1,4 @@
-import bcrypt
 import uuid
-import hashlib
 import keyring
 import getpass
 from keyring.errors import PasswordDeleteError

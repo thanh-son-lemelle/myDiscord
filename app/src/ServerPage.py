@@ -6,10 +6,7 @@ import sounddevice as sd
 import soundfile as sf
 import threading
 import os
-import json
 from datetime import datetime
-from PIL import Image, ImageTk
-from tkinter import ttk
 import time
 
 import winsound
@@ -64,14 +61,14 @@ class ServerPage(CTkFrame):
         def threading1():
              while self.running == True:
 
-                self.test()
+                self.show_message()
                 self.list_user = self.master.get_username()
                 time.sleep(1)
 
         self.thread = threading.Thread(target=threading1)
         self.thread.start()
 
-        label = CTkLabel(master=frame, text="Canaux",font=("Arial", 16))
+        label = CTkLabel(master=frame, text="Channels",font=("Arial", 16))
         label.pack(side="top", pady=(10, 0))
         # à def par une boucle
         
@@ -92,9 +89,6 @@ class ServerPage(CTkFrame):
         button = CTkButton(self, text="Send", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         button.pack(side=ctk.TOP,ipadx=10)
         
-        emoji_button = CTkButton(self, text="Choose an Emoji", command=self.pick_emoji, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
-        emoji_button.pack(side=ctk.TOP,ipadx=10)
-
         self.record_button = CTkButton(self, text="Click to record", command=self.toggle_recording, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         self.record_button.pack(side=ctk.TOP,ipadx=10)
 
@@ -121,26 +115,6 @@ class ServerPage(CTkFrame):
     #     self.frame2.canvas.yview_scroll(1, "units")  # Déplacer la vue vers le bas d'une unité
 
 
-    def on_button_click(self):
-        user_input = self.entry.get()
-        print(user_input)
-        return user_input
-    
-
-    def get_message(self, message):
-        self.commande = ""
-        self.commande = message
-        return self.commande 
-    
-
-    def show_message(self):
-        self.result_label.configure(text = self.commande)
-
-
-    def show_content(self):
-        self.show_message()
-        self.on_button_click()
-
 
     def set_runnig(self):
         self.running = False
@@ -157,7 +131,7 @@ class ServerPage(CTkFrame):
         self.entry.delete(0, 'end')
 
 
-    def test(self):
+    def show_message(self):
         texte = ""
         for tup in self.master.read_message_from_channel(self.channel_selected):
             # Convert the elements of the tuple to strings

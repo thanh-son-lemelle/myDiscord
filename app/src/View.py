@@ -1,5 +1,4 @@
 import customtkinter as ctk
-from tkinter import Frame
 
 from .LoginScreen import LoginScreen
 from .MainPage import MainPage
