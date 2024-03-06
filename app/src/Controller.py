@@ -18,9 +18,13 @@ class Controller:
         self.automatic_login()
 
         
-
+    #defining the main boucle of the application
     def main(self):
         self.view.main()
+    
+    #===============================================================================
+    #         # login and logout process
+    #===============================================================================
 
     # during the login, the controller will call the model to check if the user is allowed to access the main page
 
@@ -39,6 +43,8 @@ class Controller:
                 print(username)
                 self.store_user_information(self.model.get_user_information_by_username(username))
                 self.view.displayMainPage()
+        else:
+            pass
 
     def login(self):
 
@@ -67,12 +73,21 @@ class Controller:
         self.username = value[1]
         self.firstname = value[2]
         self.mail = value[4]
+
+    #logout
+    def logout(self):
+        self.service.auth = False
+        self.service.reset_local_data()
+        self.view.main_page.pack_forget()
+        self.view.server_page.pack_forget()
+        self.view.displayLoginScreen()
+
     # during the registration, the controller will call the model to create a new user
     def get_user_information(self):
         return self.userID, self.username, self.firstname, self.mail
     
-    def get_sending_message(self, message):
-        self.model.creatingMessage(message, self.userID, 1, 2)
+    def get_sending_message(self, message, channelID):
+        self.model.creatingMessage(message, self.userID, 1, channelID)
 
         #testing
         '''
@@ -83,8 +98,14 @@ class Controller:
     def read_message(self):
         return self.model.read_message_user()
     
+    def read_message_from_channel(self, channelID):
+        return self.model.read_message_user_from_channel(channelID)
+    
     def read_message_type2(self):
         return self.model.read_message_type2_from_message()
+    
+    def get_channel_by_serverID(self, serverID):
+        return self.model.get_channel_by_serverID(serverID)
     
     #===============================================================================
     #         # methodes getters from the frontend to be used in the model
@@ -123,11 +144,12 @@ class Controller:
         firstname=self.view.register_page.value_firstname.get()
         mail=self.view.register_page.value_mail.get()
         mdp=self.view.register_page.value_password.get()
+        print("name, firstname, mail, mdp", name, firstname, mail, mdp)
         return name, firstname, mail, mdp
     
     def register_new_user(self):
         name, firstname, mail, mdp = self.get_register_variables()
-        self.model.create_user(name, firstname, mail, mdp)
+        self.model.create_user(name, firstname, mdp, mail)
         self.view.displayloginScreen_from_register()
 
 #===============================================================================
@@ -142,7 +164,23 @@ class Controller:
         if server_name is None:
             return self.model.get_user_server_by_userID(userID)
         else:
-            return self.model.get_user_server_by_userID(userID, server_name)      
+            return self.model.get_user_server_by_userID(userID, server_name)     
+
+#===============================================================================
+        # methodes for the user buttons 
+
+    def create_channel(self, name, channel_type):
+        self.model.create_channel(name, channel_type)
+
+    def create_membership(self, userID, serverID, role, channelID):
+        self.model.create_membership(userID, serverID, role, channelID)
+
+    def get_channelID_by_channel_name(self, channel_name):
+        return self.model.get_channelID_by_channel_name(channel_name)
+    
+    def get_serverID_by_server_name_and_owner(self, server_name, owner):
+        return self.model.get_serverID_by_server_name_and_owner(server_name, owner)
+        
 if __name__ == "__main__":
 
     application = Controller()
