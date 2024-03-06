@@ -16,24 +16,36 @@ import winsound
 
 
 class ServerPage(CTkFrame):
-    def __init__(self, master, **kwargs):
-        super().__init__(master, **kwargs)
+    def __init__(self, master, userID=None, serverID=None, list_channelID=[]):
+        super().__init__(master)
         self.running = True
-        self.userID=0
-        self.serverID = 0
-        self.list_channelID = []
+        self.userID=userID
+        self.serverID = serverID
+        self.list_channelID = list_channelID
+        self.channel_selected = 2
         self.create_widgets()
+        self.recording = False
+        self.recordings = []
+        for elem in self.master.get_audio_message():
+            if elem not in self.recordings:
+                self.recordings.append(elem)
+        self.messages = []
+        print(f"userID into __init__ {self.userID}")
+        print(f"serverID into __init__ {self.serverID}")
+        print(f"list_channelID into __init__ {self.list_channelID}")
+
+        
 
     def create_widgets(self):
-        
+        print(f"userID into create_widgets {self.userID}")
+        print(f"serverID into create_widgets {self.serverID}")
+        print(f"list_channelID into create_widgets {self.list_channelID}")
+        print(f"channel_selected into create_widgets {self.channel_selected}")
 
-        
-
-        
         frame = CTkFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, width=700)
         frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
    
-        frame3 = CTkScrollableFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, orientation="vertical", scrollbar_button_color="#383838")
+        frame3 = CTkScrollableFrame(master=self, fg_color="#01b366", border_color="#FFFFFF", border_width=2, orientation="vertical", scrollbar_button_color="#383838", width=80)
         frame3.pack(expand=False, side=ctk.RIGHT, fill=ctk.Y)
 
         frame2 = CTkScrollableFrame(master=self, fg_color="#383838", border_color="#FFFFFF", border_width=2, orientation="vertical", scrollbar_button_color="#383838")
@@ -48,8 +60,8 @@ class ServerPage(CTkFrame):
         self.result_label = CTkLabel(master=frame2, text="",justify="left",font=("Arial", 16))
         self.result_label.pack(anchor="w", expand=True,pady=0, padx=0)
 
-        title_online_user = CTkLabel(master=frame3, text="Online member",justify="center",font=("Arial", 16))
-        title_online_user.pack(anchor="n",pady=5, padx=30)
+        title_online_user = CTkLabel(master=frame3, text="Users",justify="center",font=("Arial", 16))
+        title_online_user.pack(anchor="n",pady=5, padx=0)
 
         self.result_label_user_online = CTkLabel(master=frame3, text="",justify="left",font=("Arial", 16))
         self.result_label_user_online.pack(anchor="w", expand=True,pady=10, padx=30)
@@ -66,23 +78,21 @@ class ServerPage(CTkFrame):
 
         label = CTkLabel(master=frame, text="Canaux", text_color="#000000")
         label.pack(side="top", pady=(10, 0))
-
-        chat_textuel = CTkButton(master=frame, text="Main chat", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
-        chat_textuel.pack(padx=30, pady=20)
-
-        chat_textuel2 = CTkButton(master=frame, text="Another chat", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
-        chat_textuel2.pack(padx=30, pady=20)
-
-        voice_button = CTkButton(master=frame, text="Voice channel", text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
-        voice_button.pack(padx=30, pady=20)
+        # à def par une boucle
+        
+        print(f"list_channelID into create_widgets {self.list_channelID}")
+        if self.list_channelID is not None:
+            for channel in self.list_channelID:
+                channel_button = CTkButton(master=frame, text=channel, text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00", command=lambda channel=channel: self.channel_select(channel))
+                channel_button.pack(padx=30, pady=20)
 
         for user in self.list_user:
-
-            self.user_button = CTkButton(master=frame3, text=user, text_color="#000000", fg_color="transparent", hover_color="#FFDE00", bg_color="transparent", command="")
-            self.user_button.pack(padx=0, pady=0, fill="x")
+            if user[1]!=self.userID:
+                self.user_button = CTkButton(master=frame3, text=user[0], text_color="#000000", fg_color="transparent", hover_color="#FFDE00", bg_color="transparent", command=lambda user=user[0]: self.on_button_user_click(user))
+                self.user_button.pack(padx=0, pady=0)
 
         quit_button = CTkButton(master=frame, text="Disconnect",command= self.disconnect ,text_color="#000000", fg_color="#FFFFFF", hover_color="#FFDE00")
-        quit_button.pack(padx=30, pady=20,anchor = "s")
+        quit_button.pack(padx=30, pady=20,anchor = "s", side=BOTTOM)
 
         button = CTkButton(self, text="Send", command=self.on_clik_buttonSend, text_color="#000000", fg_color="#FFFFFF", hover_color="#01b366")
         button.pack(side=ctk.TOP,ipadx=10)
@@ -150,13 +160,13 @@ class ServerPage(CTkFrame):
     #new methods from this point
     def on_clik_buttonSend(self):
         message = self.entry.get()
-        self.master.get_sending_message(message)
+        self.master.get_sending_message(message,self.channel_selected)
         self.entry.delete(0, 'end')
 
 
     def test(self):
         texte = ""
-        for tup in self.master.read_message():
+        for tup in self.master.read_message_from_channel(self.channel_selected):
             # Convert the elements of the tuple to strings
             str_tup = [str(item) if not isinstance(item, bytes) else item.decode('utf-8') for item in tup]
             str_tup[0] += " : "
@@ -256,10 +266,48 @@ class ServerPage(CTkFrame):
         filename = self.recordings[selected_index]
         filename_str = str(filename[0]) if not isinstance(filename[0], bytes) else filename[0].decode("utf-8")
         winsound.PlaySound(f"audio_recordings/{filename_str}", winsound.SND_FILENAME)
+    
+    def get_userID(self, user):
+        print(f"user in get userID {user}")
+        for item in self.list_user:
+            if item[0] == user:
+                userID = item[1]
+                user_name = item[0]
+                print(f"userID in get userID {userID}")
+                return userID, user_name
+    
+    def create_channel(self, channel_name, channel_type):
+        self.master.create_channel(channel_name, channel_type)
+
+    def create_membership(self, userID, serverID, role, channelID):
+        self.master.create_membership(userID, serverID, role, channelID)
+
+    def get_serverID_by_server_name_and_owner(self, server_name, owner):
+        return self.master.get_serverID_by_server_name_and_owner(server_name, owner)
+
+    def on_button_user_click(self, user):
+        userID, user_Name = self.get_userID(user)
+        channel_name = f"{self.userID}+{userID}"
+        print(f"channel name into on_button_user_click {channel_name}")
+        result = self.master.get_channelID_by_channel_name(channel_name)
+        print(f"result into on_button_user_click {result}")
+        if result == []:
+            
+            self.create_channel(str(channel_name), "private channel")
+            channelID = self.master.get_channelID_by_channel_name(channel_name)[0][0]
+            print(f"channelID into on_button_user_click {channelID}")
+            print(f"serverID into on_button_user_click {self.serverID}")
+            self.create_membership(self.userID, self.serverID, "member", channelID)
+            #get serverid from the user
+            serverID = self.get_serverID_by_server_name_and_owner("Private Messages",userID)[0][0]
+            print(f"serverID into on_button_user_click {serverID}")
+            self.create_membership(userID, serverID, "member", channelID)
+    
+    def channel_select(self, channel):
+        self.channel_selected = channel[0]
 
 
     def disconnect(self):
-        self.master.main_page.pack_forget()
-        self.master.server_page.pack_forget()
-        self.master.displayLoginScreen()
+        self.master.stop_thread()
+        self.master.logout()
         
