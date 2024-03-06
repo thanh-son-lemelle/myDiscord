@@ -30,17 +30,8 @@ class ServerPage(CTkFrame):
             if elem not in self.recordings:
                 self.recordings.append(elem)
         self.messages = []
-        print(f"userID into __init__ {self.userID}")
-        print(f"serverID into __init__ {self.serverID}")
-        print(f"list_channelID into __init__ {self.list_channelID}")
-
-        
 
     def create_widgets(self):
-        print(f"userID into create_widgets {self.userID}")
-        print(f"serverID into create_widgets {self.serverID}")
-        print(f"list_channelID into create_widgets {self.list_channelID}")
-        print(f"channel_selected into create_widgets {self.channel_selected}")
 
         frame = CTkFrame(master=self, fg_color="#2B2D31", border_width=0, width=700)
         frame.pack(expand=False, side=ctk.LEFT, fill=ctk.Y)
@@ -73,9 +64,7 @@ class ServerPage(CTkFrame):
 
         label = CTkLabel(master=frame, text="Canaux",font=("Arial", 16))
         label.pack(side="top", pady=(10, 0))
-        # à def par une boucle
         
-        print(f"list_channelID into create_widgets {self.list_channelID}")
         if self.list_channelID is not None:
             for channel in self.list_channelID:
                 channel_button = CTkButton(master=frame, text=channel, text_color="#000000", fg_color="#FFFFFF", hover_color="#FFAB00", command=lambda channel=channel: self.channel_select(channel))
@@ -123,7 +112,6 @@ class ServerPage(CTkFrame):
 
     def on_button_click(self):
         user_input = self.entry.get()
-        print(user_input)
         return user_input
     
 
@@ -237,7 +225,6 @@ class ServerPage(CTkFrame):
         if not os.path.exists("audio_recordings"):
             os.makedirs("audio_recordings")
         os.rename(filename, os.path.join("audio_recordings", filename))
-        print(f"Enregistrement audio sauvegardé sous : audio_recordings/{filename}")
         if filename not in self.recordings:
             self.recordings.append(filename)
             self.master.get_save_audio(filename)
@@ -251,19 +238,16 @@ class ServerPage(CTkFrame):
 
 
     def play_selected(self,event):
-        print("Playing selected recording")
         selected_index = self.listbox.curselection()[0]
         filename = self.recordings[selected_index]
         filename_str = str(filename[0]) if not isinstance(filename[0], bytes) else filename[0].decode("utf-8")
         winsound.PlaySound(f"audio_recordings/{filename_str}", winsound.SND_FILENAME)
     
     def get_userID(self, user):
-        print(f"user in get userID {user}")
         for item in self.list_user:
             if item[0] == user:
                 userID = item[1]
                 user_name = item[0]
-                print(f"userID in get userID {userID}")
                 return userID, user_name
     
     def create_channel(self, channel_name, channel_type):
@@ -278,19 +262,14 @@ class ServerPage(CTkFrame):
     def on_button_user_click(self, user):
         userID, user_Name = self.get_userID(user)
         channel_name = f"{self.userID}+{userID}"
-        print(f"channel name into on_button_user_click {channel_name}")
         result = self.master.get_channelID_by_channel_name(channel_name)
-        print(f"result into on_button_user_click {result}")
         if result == []:
             
             self.create_channel(str(channel_name), "private channel")
             channelID = self.master.get_channelID_by_channel_name(channel_name)[0][0]
-            print(f"channelID into on_button_user_click {channelID}")
-            print(f"serverID into on_button_user_click {self.serverID}")
             self.create_membership(self.userID, self.serverID, "member", channelID)
             #get serverid from the user
             serverID = self.get_serverID_by_server_name_and_owner("Private Messages",userID)[0][0]
-            print(f"serverID into on_button_user_click {serverID}")
             self.create_membership(userID, serverID, "member", channelID)
     
     def channel_select(self, channel):

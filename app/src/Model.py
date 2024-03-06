@@ -151,7 +151,6 @@ class Model:
     
     def get_user_by_username(self, username):
         user_data = self.user.get_user_by_username(username)
-        print ("test user data",user_data)
         if user_data:
             return user_data[1], user_data[3]
         else:
@@ -191,35 +190,20 @@ class Model:
     
     def check_user_mail(self, mail):
         result = self.getUserMail(mail)
-        print(result)
         if result:
-            print('Mail already exists')
             return False
         else:
-            print('Mail does not exist')
             return True
 
     def check_input_register(self, name, firstname, mail, mdp):
-        print("test dans check_input_register")
-        print("name, firstname, mdp, mail", name, firstname, mail, mdp)
         if not all([name, firstname, mdp, mail]):
-            print("Veuillez remplir tous les champs.")
-            
             return False , "Veuillez remplir tous les champs."
         elif "@" not in mail:
-            print("Veuillez entrer une adresse e-mail valide avec @.")
             return False , "Veuillez entrer une adresse e-mail valide avec @."
         result = self.check_user_mail(mail)
         if result == True:
-            print("Mail valide test dans check_input_register")
-            
-            return True , ""
-        
+            return True, "Mail valide"
         else: 
-            print("Mail existe déjà")
-            # self.master.get_register_variables(name, firstname, mail, mdp)
-            # self.master.register_page.pack_forget()
-
             return False, "Mail existe déjà"
         
     # when the user is created he need to have a private server
@@ -239,10 +223,8 @@ class Model:
             self.edit_user(name, firstname, mail, mdp)
             userID=self.get_user_information_by_username(name)[0]
             self.create_private_server("Private Messages", "default server", 1, userID)
-            print(self.join.get_user_server_by_userID(userID, "Private Messages"))
             serverID = self.join.get_user_server_by_userID(userID, "Private Messages")[0][3]
             self.create_membership(userID, serverID, "admin")
-        print("User created")
         return True
         
 #===============================================================================

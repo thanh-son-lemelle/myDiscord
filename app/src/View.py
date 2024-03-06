@@ -31,9 +31,7 @@ class View(ctk.CTk):
         self.displayLoginScreen()
     
     def main(self):
-        print("view Main")
         self.mainloop()
-        print("End of the mainlopp")
 
     
     def displayLoginScreen(self):
@@ -62,7 +60,6 @@ class View(ctk.CTk):
     
     def display_ServerPage(self):
         self.server_page = ServerPage(self, userID=self.controller.get_user_information()[0])
-        print("display_ServerPage", self.controller.get_user_information()[0])
     
     def swap_server_page(self,userID, serverID, list_channels):
         self.stop_thread()
@@ -74,14 +71,11 @@ class View(ctk.CTk):
     def stop_thread(self):
         self.server_page.running = False
         self.server_page.thread.join()
-        print("Thread closed")
 
     def on_closing(self):
-        print("Closing")
         if self.controller.get_auth() == True:
             self.stop_thread()
         self.destroy()
-        print("Window closed")
 #===============================================================================
         # variables from Controller
 #===============================================================================

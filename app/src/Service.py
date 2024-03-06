@@ -42,24 +42,21 @@ class Service:
             self.save_checkbox_state(remember_me_value)
             self.auth = True
         else:
-            print('Wrong username or password')
+            self.auth = False
         return self.auth
 
     def validate_credentials(self, username, password):
         user = self.model.get_user_by_username(username)
-        print("test validate credentials user", user)
         if user:
-            #! a garder pour quand les mots de passe seront hashés
-            # Vérifiez le mot de passe hashé avec bcrypt
+            #! Keep for when passwords are hashed
+            # Check hashed password with bcrypt
             hashed_password = user[1]
-            print("test validate credentials hashed_password", hashed_password)
-            print("test validate credentials password, ", password)
             '''if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
                 # Mot de passe correct
                 return True'''
             if password == hashed_password:
                 return True
-        # Nom d'utilisateur introuvable ou mot de passe incorrect
+        # Username not found or incorrect password
         return False
     
     def set_local_auth_token(self, auth_token):

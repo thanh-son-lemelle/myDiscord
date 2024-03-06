@@ -40,7 +40,6 @@ class Controller:
         if result is not None:
             result, username = result
             if result == True:
-                print(username)
                 self.store_user_information(self.model.get_user_information_by_username(username))
                 self.view.displayMainPage()
         else:
@@ -49,7 +48,6 @@ class Controller:
     def login(self):
 
         username, password = self.get_login_variables()
-        print(self.view.login_screen.value_remember_me.get())
         result = self.service.login(username, password, self.view.login_screen.value_remember_me.get())
         if result == True:
             self.store_user_information(self.model.get_user_information_by_username(username))
@@ -57,17 +55,8 @@ class Controller:
         else:
             self.view.error.set_error("Wrong username or password")
             self.view.error.creat_widgets(self.view.screen_width//2 ,self.view.screen_height//2)
-
-        #testing
-        #print(self.userID, self.username, self.firstname, self.mail)
-        '''    
-        print(result)
-        print(f'Button is sending: {username}, {password}')
-        return username, password
-        '''
     # store the user information in the controller
-    
-      
+
     def store_user_information(self, value):
         self.userID = value[0]
         self.username = value[1]
@@ -88,12 +77,6 @@ class Controller:
     
     def get_sending_message(self, message, channelID):
         self.model.creatingMessage(message, self.userID, 1, channelID)
-
-        #testing
-        '''
-        print(f'Button is sending: {message}')
-        return message
-        '''
 
     def read_message(self):
         return self.model.read_message_user()
@@ -144,7 +127,6 @@ class Controller:
         firstname=self.view.register_page.value_firstname.get()
         mail=self.view.register_page.value_mail.get()
         mdp=self.view.register_page.value_password.get()
-        print("name, firstname, mail, mdp", name, firstname, mail, mdp)
         return name, firstname, mail, mdp
     
     def register_new_user(self):
