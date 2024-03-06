@@ -22,3 +22,8 @@ class Server():
         query = 'DELETE FROM server WHERE serverID=%s'
         params = (id)
         self.db.executeQuery(query, params)
+
+    def get_serverID_by_server_name_and_owner(self, server_name, owner):
+        query = 'SELECT serverID FROM server WHERE server_name=%s AND owner=%s'
+        params = (server_name, owner)
+        return self.db.executeQuery(query, params)
