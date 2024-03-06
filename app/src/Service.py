@@ -20,14 +20,15 @@ class Service:
     def automatic_login(self, remember_me_value):
         if remember_me_value == True and self.auth_token != None:
             result = self.model.check_auth_token(self.auth_token)
-            username = result[0][1]
-            if result:
-                self.save_checkbox_state(remember_me_value)
-                self.auth = True
-                return self.auth , username
-            else:
-                self.auth = False
-                return self.auth
+            if result != []:
+                username = result[0][1]
+                if result:
+                    self.save_checkbox_state(remember_me_value)
+                    self.auth = True
+                    return self.auth , username
+                else:
+                    self.auth = False
+                    return self.auth
         else: 
             pass
 
