@@ -26,7 +26,7 @@ class LoginScreen(ctk.CTkFrame):
             self.user_pass = ctk.CTkEntry(master=frame, placeholder_text="mot de passe", textvariable=self.value_password , show="*")
             self.user_pass.pack(pady=12, padx=10)
 
-            login_button = ctk.CTkButton(master=frame, text='Login', command=(self.on_login_button_click))   
+            login_button = ctk.CTkButton(master=frame, text='Login', command=self.on_login_button_click)   
             login_button.pack(pady=12, padx=10)
 
             self.remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me', variable=self.value_remember_me, onvalue=True, offvalue=False)
