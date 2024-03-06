@@ -1,11 +1,9 @@
 import customtkinter as ctk
 from customtkinter import *
 from customtkinter.assets import *
-from tkinter import ttk
 
 from .ServerButton import ServerButton
 
-import pygame
 
 
 class MainPage(CTkFrame):
