@@ -3,6 +3,7 @@ import uuid
 import hashlib
 import keyring
 import getpass
+from keyring.errors import PasswordDeleteError
 
 from .Model import Model
 
@@ -27,6 +28,8 @@ class Service:
             else:
                 self.auth = False
                 return self.auth
+        else: 
+            pass
 
     def login(self, username, password, remember_me_value=False):
         if self.validate_credentials(username, password):
@@ -43,10 +46,13 @@ class Service:
 
     def validate_credentials(self, username, password):
         user = self.model.get_user_by_username(username)
+        print("test validate credentials user", user)
         if user:
             #! a garder pour quand les mots de passe seront hashés
             # Vérifiez le mot de passe hashé avec bcrypt
             hashed_password = user[1]
+            print("test validate credentials hashed_password", hashed_password)
+            print("test validate credentials password, ", password)
             '''if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
                 # Mot de passe correct
                 return True'''
@@ -74,6 +80,14 @@ class Service:
                 return False
         else:
             return False
+        
+    def reset_local_data(self):
+
+        try:
+            keyring.delete_password('Harmony_password', getpass.getuser())
+            keyring.delete_password('Harmony_checkbox', 'remember_me_value')
+        except PasswordDeleteError as e:
+            print("No local data found to reset.")
         
         
 
