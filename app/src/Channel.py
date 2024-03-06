@@ -1,14 +1,12 @@
 from .Db import Db
 
-#À modifier car pas à jour avec la DB
-
 class Channel:
     def __init__(self) -> None:
         self.db = Db()
         
-    def create(self, channel_name, channel_type, server_id):
-        query = "INSERT INTO channel (channel_name) VALUES (%s), (channel_type) VALUES (%s), (server_id) VALUES (%s)"
-        params = (channel_name, channel_type, server_id)
+    def create(self, channel_name, channel_type):
+        query = "INSERT INTO channel (channel_name, channel_type) VALUES (%s, %s)"
+        params = (channel_name, channel_type)
         self.db.executeQuery(query, params)
 
     def read(self):
@@ -24,3 +22,8 @@ class Channel:
         query = 'DELETE FROM channel WHERE id=%s'
         params = (id)
         self.db.executeQuery(query, params)
+
+    def get_channelID_by_channel_name(self, channel_name):
+        query = 'SELECT channelID FROM channel WHERE channel_name=%s'
+        params = (channel_name,)
+        return self.db.executeQuery(query, params)
